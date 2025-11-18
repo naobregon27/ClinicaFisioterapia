@@ -128,3 +128,5 @@ const CambioEstadoPacienteModal = ({ open, paciente, onClose, onSubmit, loading 
 export default CambioEstadoPacienteModal;
 
 
+
+
