@@ -36,6 +36,11 @@ const RegisterPage = () => {
     password: '',
     confirmPassword: '',
     telefono: '',
+    calle: '',
+    ciudad: '',
+    provincia: '',
+    codigoPostal: '',
+    pais: 'Argentina',
   });
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -65,7 +70,23 @@ const RegisterPage = () => {
 
     setLoading(true);
     try {
-      await dispatch(registerUser(formData)).unwrap();
+      const payload = {
+        nombre: formData.nombre,
+        apellido: formData.apellido,
+        email: formData.email,
+        password: formData.password,
+        telefono: formData.telefono || undefined,
+        direccion: {
+          calle: formData.calle,
+          ciudad: formData.ciudad,
+          provincia: formData.provincia,
+          codigoPostal: formData.codigoPostal,
+          pais: formData.pais,
+        },
+        rol: config.roles?.USUARIO || 'usuario',
+      };
+
+      await dispatch(registerUser(payload)).unwrap();
       toast.success('Registro exitoso. Por favor verifica tu email.');
       navigate('/verify-email', { state: { email: formData.email } });
     } catch (err) {
@@ -152,6 +173,66 @@ const RegisterPage = () => {
                     name="telefono"
                     value={formData.telefono}
                     onChange={handleChange}
+                    disabled={loading}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <Typography variant="subtitle1" sx={{ mt: 1, fontWeight: 600 }}>
+                    Información de dirección
+                  </Typography>
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    fullWidth
+                    label="Calle"
+                    name="calle"
+                    value={formData.calle}
+                    onChange={handleChange}
+                    required
+                    disabled={loading}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    fullWidth
+                    label="Ciudad"
+                    name="ciudad"
+                    value={formData.ciudad}
+                    onChange={handleChange}
+                    required
+                    disabled={loading}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    fullWidth
+                    label="Provincia"
+                    name="provincia"
+                    value={formData.provincia}
+                    onChange={handleChange}
+                    required
+                    disabled={loading}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    fullWidth
+                    label="Código Postal"
+                    name="codigoPostal"
+                    value={formData.codigoPostal}
+                    onChange={handleChange}
+                    required
+                    disabled={loading}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    fullWidth
+                    label="País"
+                    name="pais"
+                    value={formData.pais}
+                    onChange={handleChange}
+                    required
                     disabled={loading}
                   />
                 </Grid>
