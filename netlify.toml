@@ -1,7 +1,9 @@
 [build]
+  # Directorio base donde está el package.json
+  base = "cliente"
   # Comando para construir la aplicación
   command = "npm run build"
-  # Directorio donde se generan los archivos estáticos
+  # Directorio donde se generan los archivos estáticos (relativo al base)
   publish = "dist"
 
 # Configuración de redirecciones para SPA (Single Page Application)
@@ -12,8 +14,8 @@
   status = 200
 
 # Variables de entorno (opcional - puedes configurarlas en el dashboard de Netlify)
-# [build.environment]
-#   NODE_VERSION = "18"
+[build.environment]
+  NODE_VERSION = "18"
 
 # Headers de seguridad (opcional pero recomendado)
 [[headers]]
