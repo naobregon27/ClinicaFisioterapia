@@ -19,15 +19,17 @@ import {
   InputAdornment,
   CircularProgress,
 } from '@mui/material';
-import { Visibility, VisibilityOff, LocalHospital } from '@mui/icons-material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { login, clearError, selectAuth } from '../slices/authSlice';
 import toast from 'react-hot-toast';
 import config from '../../../config/config';
+import { brandPalette, brandGradients } from '../../../theme/brand';
 
 const LoginPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { isAuthenticated, loading, error } = useSelector(selectAuth);
+  const logoSrc = '/Sin título-1 (4).png';
 
   const [formData, setFormData] = useState({
     email: '',
@@ -76,7 +78,7 @@ const LoginPage = () => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        background: brandGradients.hero,
         padding: 2,
       }}
     >
@@ -84,11 +86,38 @@ const LoginPage = () => {
         <Card elevation={10} sx={{ borderRadius: 3 }}>
           <CardContent sx={{ p: 4 }}>
             {/* Logo y Título */}
-            <Box sx={{ textAlign: 'center', mb: 4 }}>
-              <LocalHospital sx={{ fontSize: 60, color: '#667eea', mb: 2 }} />
-              <Typography variant="h4" component="h1" sx={{ fontWeight: 700, mb: 1 }}>
-                {config.appName}
-              </Typography>
+            <Box sx={{ textAlign: 'center', mb: 3 }}>
+              <Box
+                sx={{
+                  width: 200,
+                  height: 200,
+                  mx: 'auto',
+                  mb: 1,
+                  borderRadius: 0,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  transition: 'transform 260ms ease',
+                  '&:hover': {
+                    transform: 'translateY(-6px) scale(1.05)',
+                  },
+                  '&:hover img': {
+                    filter: `drop-shadow(0 18px 28px rgba(0,0,0,0.35)) drop-shadow(0 0 18px ${brandPalette.primary})`,
+                  },
+                }}
+              >
+                <Box
+                  component="img"
+                  src={logoSrc}
+                  alt="Fundación de Fisioterapia Miguel de Azcuenága"
+                  sx={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'contain',
+                    filter: 'drop-shadow(0 12px 22px rgba(0,0,0,0.35))',
+                  }}
+                />
+              </Box>
               <Typography variant="body2" color="text.secondary">
                 Inicia sesión para continuar
               </Typography>
@@ -149,9 +178,12 @@ const LoginPage = () => {
                 sx={{
                   mb: 2,
                   py: 1.5,
-                  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                  background: brandGradients.primary,
+                  boxShadow: '0 14px 25px rgba(7, 37, 47, 0.25)',
+                  fontWeight: 600,
                   '&:hover': {
-                    background: 'linear-gradient(135deg, #5568d3 0%, #6a4093 100%)',
+                    background: brandGradients.primaryInverse,
+                    boxShadow: '0 18px 30px rgba(7, 37, 47, 0.35)',
                   },
                 }}
               >
@@ -169,9 +201,9 @@ const LoginPage = () => {
                   <Link
                     to="/register"
                     style={{
-                      color: '#667eea',
+                      color: brandPalette.accent,
                       textDecoration: 'none',
-                      fontWeight: 600,
+                      fontWeight: 1000,
                     }}
                   >
                     Regístrate aquí

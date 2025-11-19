@@ -342,7 +342,7 @@ const PlanillaDiariaPage = () => {
       cancelada: '#f56565',
       ausente: '#a0aec0',
     };
-    return colors[estado] || '#667eea';
+    return colors[estado] || '#0d4d61';
   };
 
   const getEstadoLabel = (estado) => {
@@ -407,7 +407,11 @@ const PlanillaDiariaPage = () => {
   }, [sesiones.length, fecha]);
 
   return (
-    <Box sx={{ width: '100%', maxWidth: '1600px', mx: 'auto', px: { xs: 1, sm: 2, md: 3 } }}>
+    <Box
+      sx={{
+        width: '100%',
+      }}
+    >
       {/* Header con navegación de fechas */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
@@ -440,7 +444,7 @@ const PlanillaDiariaPage = () => {
                 variant={isMobile ? 'h6' : 'h5'}
                 sx={{
                   fontWeight: 700,
-                  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                  background: 'linear-gradient(135deg, #0d4d61 0%, #6fb0b8 100%)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
                   textTransform: 'capitalize',
@@ -615,18 +619,18 @@ const PlanillaDiariaPage = () => {
                     cursor: 'pointer',
                     position: 'relative',
                     background: esSeleccionado
-                      ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+                      ? 'linear-gradient(135deg, #0d4d61 0%, #6fb0b8 100%)'
                       : tieneSesiones
-                      ? '#667eea15'
+                      ? '#0d4d6115'
                       : 'transparent',
                     color: esSeleccionado ? 'white' : esMesActual ? '#2d3748' : '#a0aec0',
-                    border: esDiaActual && !esSeleccionado ? '1px solid #667eea' : '1px solid transparent',
+                    border: esDiaActual && !esSeleccionado ? '1px solid #0d4d61' : '1px solid transparent',
                     boxShadow: esSeleccionado ? '0 10px 20px rgba(102,126,234,0.35)' : 'none',
                     transition: 'all 0.2s ease',
                     '&:hover': {
                       transform: 'translateY(-2px)',
                       background: esSeleccionado
-                        ? 'linear-gradient(135deg, #5568d3 0%, #6a4093 100%)'
+                        ? 'linear-gradient(135deg, #0b3c4d 0%, #6a4093 100%)'
                         : '#edf2f7',
                     },
                   }}
@@ -641,7 +645,7 @@ const PlanillaDiariaPage = () => {
                         width: 6,
                         height: 6,
                         borderRadius: '50%',
-                        backgroundColor: '#764ba2',
+                        backgroundColor: '#6fb0b8',
                         position: 'absolute',
                         left: '50%',
                         transform: 'translateX(-50%)',
@@ -662,8 +666,8 @@ const PlanillaDiariaPage = () => {
           <Card
             elevation={3}
             sx={{
-              background: 'linear-gradient(135deg, #667eea15 0%, #667eea05 100%)',
-              border: '1px solid #667eea20',
+              background: 'linear-gradient(135deg, #0d4d6115 0%, #0d4d6105 100%)',
+              border: '1px solid #0d4d6120',
               borderRadius: 3,
             }}
           >
@@ -671,7 +675,7 @@ const PlanillaDiariaPage = () => {
               <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 600 }}>
                 Total Sesiones
               </Typography>
-              <Typography variant="h5" sx={{ fontWeight: 700, color: '#667eea', mt: 0.5 }}>
+              <Typography variant="h5" sx={{ fontWeight: 700, color: '#0d4d61', mt: 0.5 }}>
                 {resumen.totalSesiones}
               </Typography>
             </CardContent>
@@ -921,8 +925,8 @@ const PlanillaDiariaPage = () => {
                                   });
                                 }}
                                 sx={{
-                                  color: '#667eea',
-                                  '&:hover': { bgcolor: '#667eea15' },
+                                  color: '#0d4d61',
+                                  '&:hover': { bgcolor: '#0d4d6115' },
                                 }}
                               >
                                 <VisibilityIcon fontSize="small" />

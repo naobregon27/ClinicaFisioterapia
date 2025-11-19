@@ -104,7 +104,7 @@ const RegisterPage = () => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        background: 'linear-gradient(135deg, #0d4d61 0%, #6fb0b8 100%)',
         padding: 2,
       }}
     >
@@ -113,7 +113,7 @@ const RegisterPage = () => {
           <CardContent sx={{ p: 4 }}>
             {/* Logo y Título */}
             <Box sx={{ textAlign: 'center', mb: 4 }}>
-              <LocalHospital sx={{ fontSize: 60, color: '#667eea', mb: 2 }} />
+              <LocalHospital sx={{ fontSize: 60, color: '#0d4d61', mb: 2 }} />
               <Typography variant="h4" component="h1" sx={{ fontWeight: 700, mb: 1 }}>
                 Crear Cuenta
               </Typography>
@@ -284,9 +284,9 @@ const RegisterPage = () => {
                   mt: 3,
                   mb: 2,
                   py: 1.5,
-                  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                  background: 'linear-gradient(135deg, #0d4d61 0%, #6fb0b8 100%)',
                   '&:hover': {
-                    background: 'linear-gradient(135deg, #5568d3 0%, #6a4093 100%)',
+                    background: 'linear-gradient(135deg, #0b3c4d 0%, #6a4093 100%)',
                   },
                 }}
               >
@@ -304,7 +304,7 @@ const RegisterPage = () => {
                   <Link
                     to="/login"
                     style={{
-                      color: '#667eea',
+                      color: '#0d4d61',
                       textDecoration: 'none',
                       fontWeight: 600,
                     }}

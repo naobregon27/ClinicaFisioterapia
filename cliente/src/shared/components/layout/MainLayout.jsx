@@ -28,14 +28,8 @@ const MainLayout = ({ children }) => {
         component="main"
         sx={{
           flexGrow: 1,
-          width: {
-            xs: '100%',
-            md: sidebarOpen ? `calc(100% - ${DRAWER_WIDTH}px)` : '100%',
-          },
-          ml: {
-            xs: 0,
-            md: sidebarOpen ? `${DRAWER_WIDTH}px` : 0,
-          },
+          width: '100%',
+          ml: { xs: 0, md: sidebarOpen ? `${DRAWER_WIDTH}px` : 0 },
           transition: theme.transitions.create(['margin', 'width'], {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
@@ -48,14 +42,15 @@ const MainLayout = ({ children }) => {
         {/* Contenido */}
         <Box
           sx={{
-            mt: { xs: 7, sm: 8 },
-            pl: { xs: 0.5, sm: 0.75, md: 1 },
-            pr: { xs: 0.5, sm: 1, md: 1.5 },
-            pt: { xs: 0.5, sm: 1, md: 1 },
-            pb: { xs: 0.5, sm: 1, md: 1 },
+            mt: { xs: 6, md: 7 },
+            pl: { xs: 1, sm: 1.5, md: sidebarOpen ? 2 : 1.5 },
+            pr: { xs: 1, sm: 1.5, md: 2.5 },
+            pt: { xs: 0.75, sm: 1, md: 1.5 },
+            pb: { xs: 1, sm: 1.5, md: 2 },
             minHeight: 'calc(100vh - 64px)',
             width: '100%',
             maxWidth: '100%',
+            mx: 0,
             overflowX: 'hidden',
           }}
         >

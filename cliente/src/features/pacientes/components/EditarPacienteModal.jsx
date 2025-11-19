@@ -933,7 +933,7 @@ const EditarPacienteModal = ({ open, onClose, pacienteId }) => {
     >
       <DialogTitle
         sx={{
-          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+          background: 'linear-gradient(135deg, #0d4d61 0%, #6fb0b8 100%)',
           color: 'white',
           display: 'flex',
           justifyContent: 'space-between',
@@ -1021,7 +1021,7 @@ const EditarPacienteModal = ({ open, onClose, pacienteId }) => {
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
-                          bgcolor: index <= activeStep ? '#667eea' : '#e2e8f0',
+                          bgcolor: index <= activeStep ? '#0d4d61' : '#e2e8f0',
                           color: index <= activeStep ? 'white' : '#a0aec0',
                           transition: 'all 0.3s ease',
                           boxShadow: index <= activeStep ? '0 4px 12px rgba(102,126,234,0.4)' : 'none',
@@ -1076,14 +1076,14 @@ const EditarPacienteModal = ({ open, onClose, pacienteId }) => {
             disabled={loading}
             startIcon={loading ? <CircularProgress size={20} color="inherit" /> : <SaveIcon />}
             sx={{
-              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              background: 'linear-gradient(135deg, #0d4d61 0%, #6fb0b8 100%)',
               textTransform: 'none',
               fontWeight: 600,
               px: 4,
               py: 1,
               boxShadow: '0 4px 12px rgba(102,126,234,0.4)',
               '&:hover': {
-                background: 'linear-gradient(135deg, #5568d3 0%, #6a4093 100%)',
+                background: 'linear-gradient(135deg, #0b3c4d 0%, #6a4093 100%)',
                 boxShadow: '0 6px 16px rgba(102,126,234,0.5)',
                 transform: 'translateY(-2px)',
               },
@@ -1097,14 +1097,14 @@ const EditarPacienteModal = ({ open, onClose, pacienteId }) => {
             variant="contained"
             onClick={handleNext}
             sx={{
-              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              background: 'linear-gradient(135deg, #0d4d61 0%, #6fb0b8 100%)',
               textTransform: 'none',
               fontWeight: 600,
               px: 4,
               py: 1,
               boxShadow: '0 4px 12px rgba(102,126,234,0.4)',
               '&:hover': {
-                background: 'linear-gradient(135deg, #5568d3 0%, #6a4093 100%)',
+                background: 'linear-gradient(135deg, #0b3c4d 0%, #6a4093 100%)',
                 boxShadow: '0 6px 16px rgba(102,126,234,0.5)',
                 transform: 'translateY(-2px)',
               },

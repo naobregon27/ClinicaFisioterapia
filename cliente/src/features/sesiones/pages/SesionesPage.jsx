@@ -26,7 +26,11 @@ const SesionesPage = () => {
   };
 
   return (
-    <Box sx={{ width: '100%', maxWidth: '100%', mx: 0, px: 0 }}>
+    <Box
+      sx={{
+        width: '100%',
+      }}
+    >
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
@@ -48,7 +52,7 @@ const SesionesPage = () => {
               variant={isMobile ? 'h5' : 'h4'}
               sx={{
                 fontWeight: 700,
-                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                background: 'linear-gradient(135deg, #0d4d61 0%, #6fb0b8 100%)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
                 mb: 0.5,
@@ -88,10 +92,10 @@ const SesionesPage = () => {
                 px: { xs: 2, md: 3 },
               },
               '& .Mui-selected': {
-                color: '#667eea',
+                color: '#0d4d61',
               },
               '& .MuiTabs-indicator': {
-                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                background: 'linear-gradient(135deg, #0d4d61 0%, #6fb0b8 100%)',
                 height: 3,
                 borderRadius: '3px 3px 0 0',
               },

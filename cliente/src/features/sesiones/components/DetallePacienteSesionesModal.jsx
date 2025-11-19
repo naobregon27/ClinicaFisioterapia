@@ -63,11 +63,11 @@ const DetallePacienteSesionesModal = ({ open, onClose, paciente }) => {
     const colors = {
       activo: '#48bb78',
       inactivo: '#a0aec0',
-      alta: '#667eea',
+      alta: '#0d4d61',
       derivado: '#f6ad55',
       abandono: '#f56565',
     };
-    return colors[estado] || '#667eea';
+    return colors[estado] || '#0d4d61';
   };
 
   const edad = calcularEdad(paciente.fechaNacimiento);
@@ -97,7 +97,7 @@ const DetallePacienteSesionesModal = ({ open, onClose, paciente }) => {
       >
         <DialogTitle
           sx={{
-            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+            background: 'linear-gradient(135deg, #0d4d61 0%, #6fb0b8 100%)',
             color: 'white',
             display: 'flex',
             justifyContent: 'space-between',
@@ -157,7 +157,7 @@ const DetallePacienteSesionesModal = ({ open, onClose, paciente }) => {
                 <Grid container spacing={2}>
                   <Grid item xs={12} sm={6}>
                     <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 1 }}>
-                      <PersonIcon sx={{ color: '#667eea', fontSize: 20 }} />
+                      <PersonIcon sx={{ color: '#0d4d61', fontSize: 20 }} />
                       <Typography variant="body2" color="text.secondary">
                         Nombre completo
                       </Typography>
@@ -168,7 +168,7 @@ const DetallePacienteSesionesModal = ({ open, onClose, paciente }) => {
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 1 }}>
-                      <CalendarIcon sx={{ color: '#667eea', fontSize: 20 }} />
+                      <CalendarIcon sx={{ color: '#0d4d61', fontSize: 20 }} />
                       <Typography variant="body2" color="text.secondary">
                         Fecha de nacimiento
                       </Typography>
@@ -184,7 +184,7 @@ const DetallePacienteSesionesModal = ({ open, onClose, paciente }) => {
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 1 }}>
-                      <PersonIcon sx={{ color: '#667eea', fontSize: 20 }} />
+                      <PersonIcon sx={{ color: '#0d4d61', fontSize: 20 }} />
                       <Typography variant="body2" color="text.secondary">
                         Género
                       </Typography>
@@ -195,7 +195,7 @@ const DetallePacienteSesionesModal = ({ open, onClose, paciente }) => {
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 1 }}>
-                      <PhoneIcon sx={{ color: '#667eea', fontSize: 20 }} />
+                      <PhoneIcon sx={{ color: '#0d4d61', fontSize: 20 }} />
                       <Typography variant="body2" color="text.secondary">
                         Teléfono
                       </Typography>
@@ -207,7 +207,7 @@ const DetallePacienteSesionesModal = ({ open, onClose, paciente }) => {
                   {paciente.telefonoAlternativo && (
                     <Grid item xs={12} sm={6}>
                       <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 1 }}>
-                        <PhoneIcon sx={{ color: '#667eea', fontSize: 20 }} />
+                        <PhoneIcon sx={{ color: '#0d4d61', fontSize: 20 }} />
                         <Typography variant="body2" color="text.secondary">
                           Teléfono alternativo
                         </Typography>
@@ -220,7 +220,7 @@ const DetallePacienteSesionesModal = ({ open, onClose, paciente }) => {
                   {paciente.email && (
                     <Grid item xs={12} sm={6}>
                       <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 1 }}>
-                        <EmailIcon sx={{ color: '#667eea', fontSize: 20 }} />
+                        <EmailIcon sx={{ color: '#0d4d61', fontSize: 20 }} />
                         <Typography variant="body2" color="text.secondary">
                           Email
                         </Typography>
@@ -263,7 +263,7 @@ const DetallePacienteSesionesModal = ({ open, onClose, paciente }) => {
                     Dirección
                   </Typography>
                   <Stack direction="row" spacing={1} alignItems="flex-start" sx={{ mb: 1 }}>
-                    <HomeIcon sx={{ color: '#667eea', fontSize: 20, mt: 0.5 }} />
+                    <HomeIcon sx={{ color: '#0d4d61', fontSize: 20, mt: 0.5 }} />
                     <Typography variant="body1" sx={{ fontWeight: 500 }}>
                       {paciente.direccion.calle} {paciente.direccion.numero}
                       {paciente.direccion.barrio && `, ${paciente.direccion.barrio}`}
@@ -297,7 +297,7 @@ const DetallePacienteSesionesModal = ({ open, onClose, paciente }) => {
                     Obra Social
                   </Typography>
                   <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 1 }}>
-                    <HospitalIcon sx={{ color: '#667eea', fontSize: 20 }} />
+                    <HospitalIcon sx={{ color: '#0d4d61', fontSize: 20 }} />
                     <Typography variant="body1" sx={{ fontWeight: 600 }}>
                       {paciente.obraSocial.nombre}
                     </Typography>
@@ -437,7 +437,7 @@ const DetallePacienteSesionesModal = ({ open, onClose, paciente }) => {
                       <Typography variant="body2" color="text.secondary">
                         Total sesiones
                       </Typography>
-                      <Typography variant="h6" sx={{ fontWeight: 700, color: '#667eea' }}>
+                      <Typography variant="h6" sx={{ fontWeight: 700, color: '#0d4d61' }}>
                         {paciente.estadisticas.totalSesiones || 0}
                       </Typography>
                     </Grid>
@@ -491,11 +491,11 @@ const DetallePacienteSesionesModal = ({ open, onClose, paciente }) => {
             startIcon={<EventNoteIcon />}
             onClick={handleRegistrarSesion}
             sx={{
-              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              background: 'linear-gradient(135deg, #0d4d61 0%, #6fb0b8 100%)',
               textTransform: 'none',
               fontWeight: 600,
               '&:hover': {
-                background: 'linear-gradient(135deg, #5568d3 0%, #6a4093 100%)',
+                background: 'linear-gradient(135deg, #0b3c4d 0%, #6a4093 100%)',
               },
             }}
           >

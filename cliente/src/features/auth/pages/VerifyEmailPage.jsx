@@ -29,18 +29,18 @@ const VerifyEmailPage = () => {
   };
 
   return (
-    <Box sx={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}>
+    <Box sx={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(135deg, #0d4d61 0%, #6fb0b8 100%)' }}>
       <Container maxWidth="sm">
         <Card elevation={10}>
           <CardContent sx={{ p: 4, textAlign: 'center' }}>
-            <LocalHospital sx={{ fontSize: 60, color: '#667eea', mb: 2 }} />
+            <LocalHospital sx={{ fontSize: 60, color: '#0d4d61', mb: 2 }} />
             <Typography variant="h4" sx={{ fontWeight: 700, mb: 1 }}>Verificar Email</Typography>
             <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
               Ingresa el código de 6 dígitos enviado a {email}
             </Typography>
             <form onSubmit={handleSubmit}>
               <TextField fullWidth label="Código de verificación" value={code} onChange={(e) => setCode(e.target.value)} required disabled={loading} inputProps={{ maxLength: 6 }} sx={{ mb: 3 }} />
-              <Button type="submit" fullWidth variant="contained" size="large" disabled={loading} sx={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}>
+              <Button type="submit" fullWidth variant="contained" size="large" disabled={loading} sx={{ background: 'linear-gradient(135deg, #0d4d61 0%, #6fb0b8 100%)' }}>
                 {loading ? <CircularProgress size={24} color="inherit" /> : 'Verificar'}
               </Button>
             </form>

@@ -150,7 +150,7 @@ const EstadisticasPacientes = () => {
             title="Total Pacientes"
             value={resumen.totalPacientes}
             icon={<PeopleIcon sx={{ color: 'white', fontSize: { xs: 28, sm: 32 } }} />}
-            color="#667eea"
+            color="#0d4d61"
             delay={0.1}
           />
         </Grid>
@@ -168,7 +168,7 @@ const EstadisticasPacientes = () => {
             title="Con Alta"
             value={resumen.altas}
             icon={<CheckCircleIcon sx={{ color: 'white', fontSize: { xs: 28, sm: 32 } }} />}
-            color="#667eea"
+            color="#0d4d61"
             delay={0.3}
           />
         </Grid>
@@ -204,7 +204,7 @@ const EstadisticasPacientes = () => {
                   alignItems: 'center',
                   mb: 3,
                   pb: 2,
-                  borderBottom: '2px solid #667eea20',
+                  borderBottom: '2px solid #0d4d6120',
                 }}
               >
                 <Box
@@ -212,7 +212,7 @@ const EstadisticasPacientes = () => {
                     width: 48,
                     height: 48,
                     borderRadius: 2,
-                    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                    background: 'linear-gradient(135deg, #0d4d61 0%, #6fb0b8 100%)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -237,15 +237,15 @@ const EstadisticasPacientes = () => {
                     <Chip
                       label={`${item._id}: ${item.cantidad}`}
                       sx={{
-                        bgcolor: '#667eea15',
-                        color: '#667eea',
+                        bgcolor: '#0d4d6115',
+                        color: '#0d4d61',
                         fontWeight: 600,
                         fontSize: '0.9rem',
                         px: 1,
                         py: 2.5,
-                        border: '1px solid #667eea30',
+                        border: '1px solid #0d4d6130',
                         '&:hover': {
-                          bgcolor: '#667eea25',
+                          bgcolor: '#0d4d6125',
                           transform: 'scale(1.05)',
                         },
                         transition: 'all 0.2s ease',

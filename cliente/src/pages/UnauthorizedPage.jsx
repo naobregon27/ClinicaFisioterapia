@@ -19,7 +19,7 @@ const UnauthorizedPage = () => {
         <Button
           variant="contained"
           onClick={() => navigate('/dashboard')}
-          sx={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}
+          sx={{ background: 'linear-gradient(135deg, #0d4d61 0%, #6fb0b8 100%)' }}
         >
           Volver al Dashboard
         </Button>

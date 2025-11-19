@@ -89,7 +89,7 @@ const PagosPendientesPage = () => {
       cancelada: '#f56565',
       ausente: '#a0aec0',
     };
-    return colors[estado] || '#667eea';
+    return colors[estado] || '#0d4d61';
   };
 
   const getEstadoLabel = (estado) => {
@@ -106,9 +106,18 @@ const PagosPendientesPage = () => {
   const resumen = pagosPendientes?.resumen || {};
   const totalPendiente = pagosPendientes?.totalPendiente || 0;
   const cantidad = pagosPendientes?.cantidad || 0;
+  const tableViewportHeight = {
+    xs: 'calc(100vh - 400px)',
+    md: 'calc(100vh - 350px)',
+  };
+  const shouldLimitTableHeight = sesiones.length > (isMobile ? 4 : 8);
 
   return (
-    <Box sx={{ width: '100%', maxWidth: '100%', mx: 0, px: 0 }}>
+    <Box
+      sx={{
+        width: '100%',
+      }}
+    >
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
@@ -130,7 +139,7 @@ const PagosPendientesPage = () => {
               variant={isMobile ? 'h5' : 'h4'}
               sx={{
                 fontWeight: 700,
-                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                background: 'linear-gradient(135deg, #0d4d61 0%, #6fb0b8 100%)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
                 mb: 0.5,
@@ -182,19 +191,19 @@ const PagosPendientesPage = () => {
           <Card
             elevation={3}
             sx={{
-              background: 'linear-gradient(135deg, #667eea15 0%, #667eea05 100%)',
-              border: '1px solid #667eea20',
+              background: 'linear-gradient(135deg, #0d4d6115 0%, #0d4d6105 100%)',
+              border: '1px solid #0d4d6120',
               borderRadius: 3,
             }}
           >
             <CardContent sx={{ p: 2.5 }}>
               <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 1 }}>
-                <ScheduleIcon sx={{ color: '#667eea', fontSize: 28 }} />
+                <ScheduleIcon sx={{ color: '#0d4d61', fontSize: 28 }} />
                 <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 600 }}>
                   Cantidad de Sesiones
                 </Typography>
               </Stack>
-              <Typography variant="h4" sx={{ fontWeight: 700, color: '#667eea' }}>
+              <Typography variant="h4" sx={{ fontWeight: 700, color: '#0d4d61' }}>
                 {cantidad}
               </Typography>
             </CardContent>
@@ -256,14 +265,17 @@ const PagosPendientesPage = () => {
               </Typography>
             </Box>
           ) : (
-            <TableContainer
-              component={Paper}
-              elevation={0}
-              sx={{
-                maxHeight: { xs: 'calc(100vh - 400px)', md: 'calc(100vh - 350px)' },
-                overflowX: 'auto',
-              }}
-            >
+                <TableContainer
+                  component={Paper}
+                  elevation={0}
+                  sx={{
+                    ...(shouldLimitTableHeight && {
+                      maxHeight: tableViewportHeight,
+                      minHeight: tableViewportHeight,
+                    }),
+                    overflowX: 'auto',
+                  }}
+                >
               <Table stickyHeader>
                 <TableHead>
                   <TableRow
@@ -324,7 +336,7 @@ const PagosPendientesPage = () => {
                           <Stack direction="row" spacing={1.5} alignItems="center">
                             <Avatar
                               sx={{
-                                bgcolor: '#667eea',
+                                bgcolor: '#0d4d61',
                                 width: { xs: 36, sm: 40 },
                                 height: { xs: 36, sm: 40 },
                                 fontSize: { xs: '0.9rem', sm: '1rem' },
@@ -367,8 +379,8 @@ const PagosPendientesPage = () => {
                                 variant="outlined"
                                 sx={{
                                   fontSize: '0.75rem',
-                                  borderColor: '#667eea',
-                                  color: '#667eea',
+                                  borderColor: '#0d4d61',
+                                  color: '#0d4d61',
                                 }}
                               />
                             </TableCell>
@@ -399,7 +411,7 @@ const PagosPendientesPage = () => {
                                 variant="body2"
                                 sx={{
                                   fontWeight: 600,
-                                  color: '#667eea',
+                                  color: '#0d4d61',
                                 }}
                               >
                                 #{sesion.numeroSesion || '-'}
@@ -450,9 +462,9 @@ const PagosPendientesPage = () => {
                                   });
                                 }}
                                 sx={{
-                                  color: '#667eea',
+                                  color: '#0d4d61',
                                   '&:hover': {
-                                    bgcolor: '#667eea15',
+                                    bgcolor: '#0d4d6115',
                                     transform: 'scale(1.15)',
                                   },
                                   transition: 'all 0.2s ease',

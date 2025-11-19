@@ -74,6 +74,13 @@ const PacientesListPage = () => {
   const pagination = useSelector(selectPacientesPagination);
   const filtros = useSelector(selectPacientesFiltros);
 
+  const tableViewportHeight = {
+    xs: 'calc(100vh - 400px)',
+    md: 'calc(100vh - 350px)',
+  };
+  const shouldLimitTableHeight =
+    (pagination?.total || pacientes.length) > (pagination?.limit || 10);
+
   const [busquedaLocal, setBusquedaLocal] = useState(filtros.busqueda || '');
   const [modalOpen, setModalOpen] = useState(false);
   const [detalleModalOpen, setDetalleModalOpen] = useState(false);
@@ -188,7 +195,7 @@ const PacientesListPage = () => {
     const colors = {
       activo: '#48bb7820',
       inactivo: '#a0aec020',
-      alta: '#667eea20',
+      alta: '#0d4d6120',
       derivado: '#f6ad5520',
       abandono: '#f5656520',
     };
@@ -325,7 +332,7 @@ const PacientesListPage = () => {
               variant={isMobile ? 'h5' : 'h4'}
               sx={{
                 fontWeight: 700,
-                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                background: 'linear-gradient(135deg, #0d4d61 0%, #6fb0b8 100%)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
                 mb: 0.5,
@@ -347,11 +354,11 @@ const PacientesListPage = () => {
                 borderRadius: 2,
                 textTransform: 'none',
                 fontWeight: 600,
-                borderColor: '#667eea',
-                color: '#667eea',
+                borderColor: '#0d4d61',
+                color: '#0d4d61',
                 '&:hover': {
-                  borderColor: '#5568d3',
-                  bgcolor: '#667eea10',
+                  borderColor: '#0b3c4d',
+                  bgcolor: '#0d4d6110',
                   transform: 'translateY(-2px)',
                 },
                 transition: 'all 0.3s ease',
@@ -365,13 +372,13 @@ const PacientesListPage = () => {
               onClick={() => setModalOpen(true)}
               size={isMobile ? 'medium' : 'large'}
               sx={{
-                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                background: 'linear-gradient(135deg, #0d4d61 0%, #6fb0b8 100%)',
                 borderRadius: 2,
                 textTransform: 'none',
                 fontWeight: 600,
                 boxShadow: '0 4px 12px rgba(102, 126, 234, 0.4)',
                 '&:hover': {
-                  background: 'linear-gradient(135deg, #5568d3 0%, #6a4093 100%)',
+                  background: 'linear-gradient(135deg, #0b3c4d 0%, #6a4093 100%)',
                   boxShadow: '0 6px 16px rgba(102, 126, 234, 0.5)',
                   transform: 'translateY(-2px)',
                 },
@@ -490,7 +497,7 @@ const PacientesListPage = () => {
             <LinearProgress
               sx={{
                 height: 3,
-                background: 'linear-gradient(90deg, #667eea 0%, #764ba2 100%)',
+                background: 'linear-gradient(90deg, #0d4d61 0%, #6fb0b8 100%)',
               }}
             />
           )}
@@ -498,7 +505,10 @@ const PacientesListPage = () => {
             component={Paper}
             elevation={0}
             sx={{
-              maxHeight: { xs: 'calc(100vh - 400px)', md: 'calc(100vh - 350px)' },
+              ...(shouldLimitTableHeight && {
+                maxHeight: tableViewportHeight,
+                minHeight: tableViewportHeight,
+              }),
               overflowX: 'auto',
             }}
           >
@@ -564,7 +574,7 @@ const PacientesListPage = () => {
                             startIcon={<AddIcon />}
                             onClick={() => setModalOpen(true)}
                             sx={{
-                              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                              background: 'linear-gradient(135deg, #0d4d61 0%, #6fb0b8 100%)',
                             }}
                           >
                             Agregar Paciente
@@ -603,7 +613,7 @@ const PacientesListPage = () => {
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
                           <Avatar
                             sx={{
-                              bgcolor: '#667eea',
+                              bgcolor: '#0d4d61',
                               width: { xs: 36, sm: 40 },
                               height: { xs: 36, sm: 40 },
                               fontSize: { xs: '0.9rem', sm: '1rem' },
@@ -686,8 +696,8 @@ const PacientesListPage = () => {
                               variant="outlined"
                               sx={{
                                 fontSize: '0.75rem',
-                                borderColor: '#667eea',
-                                color: '#667eea',
+                                borderColor: '#0d4d61',
+                                color: '#0d4d61',
                               }}
                             />
                           </TableCell>
@@ -712,7 +722,7 @@ const PacientesListPage = () => {
                               variant="body2"
                               sx={{
                                 fontWeight: 700,
-                                color: '#667eea',
+                                color: '#0d4d61',
                                 fontSize: { xs: '0.85rem', md: '0.9rem' },
                               }}
                             >
@@ -755,9 +765,9 @@ const PacientesListPage = () => {
                                 setDetalleModalOpen(true);
                               }}
                               sx={{
-                                color: '#667eea',
+                                color: '#0d4d61',
                                 '&:hover': {
-                                  bgcolor: '#667eea15',
+                                  bgcolor: '#0d4d6115',
                                   transform: 'scale(1.15)',
                                 },
                                 transition: 'all 0.2s ease',

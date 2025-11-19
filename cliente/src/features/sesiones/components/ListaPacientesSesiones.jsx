@@ -204,7 +204,7 @@ const ListaPacientesSesiones = () => {
                       '&:hover': {
                         transform: 'translateY(-4px)',
                         boxShadow: '0 8px 24px rgba(102, 126, 234, 0.2)',
-                        borderColor: '#667eea',
+                        borderColor: '#0d4d61',
                       },
                     }}
                   >
@@ -212,7 +212,7 @@ const ListaPacientesSesiones = () => {
                       <Stack direction="row" spacing={2} alignItems="center">
                         <Avatar
                           sx={{
-                            bgcolor: '#667eea',
+                            bgcolor: '#0d4d61',
                             width: { xs: 48, sm: 56 },
                             height: { xs: 48, sm: 56 },
                             fontSize: { xs: '1.2rem', sm: '1.4rem' },

@@ -893,7 +893,7 @@ const NuevoPacienteModal = ({ open, onClose }) => {
     >
       <DialogTitle
         sx={{
-          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+          background: 'linear-gradient(135deg, #0d4d61 0%, #6fb0b8 100%)',
           color: 'white',
           display: 'flex',
           justifyContent: 'space-between',
@@ -928,7 +928,7 @@ const NuevoPacienteModal = ({ open, onClose }) => {
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      bgcolor: index <= activeStep ? '#667eea' : '#e2e8f0',
+                      bgcolor: index <= activeStep ? '#0d4d61' : '#e2e8f0',
                       color: index <= activeStep ? 'white' : '#a0aec0',
                       transition: 'all 0.3s ease',
                     }}
@@ -975,7 +975,7 @@ const NuevoPacienteModal = ({ open, onClose }) => {
             disabled={loading}
             startIcon={loading ? <CircularProgress size={20} color="inherit" /> : <CheckCircleIcon />}
             sx={{
-              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              background: 'linear-gradient(135deg, #0d4d61 0%, #6fb0b8 100%)',
               textTransform: 'none',
               fontWeight: 600,
               px: 3,
@@ -988,7 +988,7 @@ const NuevoPacienteModal = ({ open, onClose }) => {
             variant="contained"
             onClick={handleNext}
             sx={{
-              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              background: 'linear-gradient(135deg, #0d4d61 0%, #6fb0b8 100%)',
               textTransform: 'none',
               fontWeight: 600,
               px: 3,

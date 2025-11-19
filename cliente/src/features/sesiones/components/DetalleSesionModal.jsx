@@ -139,7 +139,7 @@ const DetalleSesionModal = ({ open, onClose, sesionId, onUpdate }) => {
       cancelada: '#f56565',
       ausente: '#a0aec0',
     };
-    return colors[estado] || '#667eea';
+    return colors[estado] || '#0d4d61';
   };
 
   const getEstadoLabel = (estado) => {
@@ -171,7 +171,7 @@ const DetalleSesionModal = ({ open, onClose, sesionId, onUpdate }) => {
       >
         <DialogTitle
           sx={{
-            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+            background: 'linear-gradient(135deg, #0d4d61 0%, #6fb0b8 100%)',
             color: 'white',
             display: 'flex',
             justifyContent: 'space-between',
@@ -221,7 +221,7 @@ const DetalleSesionModal = ({ open, onClose, sesionId, onUpdate }) => {
                     <Stack direction="row" spacing={2} alignItems="center" sx={{ mb: 2 }}>
                       <Avatar
                         sx={{
-                          bgcolor: '#667eea',
+                          bgcolor: '#0d4d61',
                           width: 56,
                           height: 56,
                           fontSize: '1.2rem',
@@ -251,7 +251,7 @@ const DetalleSesionModal = ({ open, onClose, sesionId, onUpdate }) => {
                     </Stack>
                     {sesion.paciente.obraSocial && (
                       <Stack direction="row" spacing={1} alignItems="center">
-                        <HospitalIcon sx={{ color: '#667eea', fontSize: 20 }} />
+                        <HospitalIcon sx={{ color: '#0d4d61', fontSize: 20 }} />
                         <Typography variant="body2" sx={{ fontWeight: 500 }}>
                           {sesion.paciente.obraSocial.nombre || sesion.paciente.obraSocial}
                         </Typography>
@@ -278,7 +278,7 @@ const DetalleSesionModal = ({ open, onClose, sesionId, onUpdate }) => {
                   <Grid container spacing={2}>
                     <Grid item xs={12} sm={6}>
                       <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 1 }}>
-                        <CalendarIcon sx={{ color: '#667eea', fontSize: 20 }} />
+                        <CalendarIcon sx={{ color: '#0d4d61', fontSize: 20 }} />
                         <Typography variant="body2" color="text.secondary">
                           Fecha
                         </Typography>
@@ -293,7 +293,7 @@ const DetalleSesionModal = ({ open, onClose, sesionId, onUpdate }) => {
                     </Grid>
                     <Grid item xs={12} sm={6}>
                       <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 1 }}>
-                        <ScheduleIcon sx={{ color: '#667eea', fontSize: 20 }} />
+                        <ScheduleIcon sx={{ color: '#0d4d61', fontSize: 20 }} />
                         <Typography variant="body2" color="text.secondary">
                           Horario
                         </Typography>
@@ -311,8 +311,8 @@ const DetalleSesionModal = ({ open, onClose, sesionId, onUpdate }) => {
                         label={sesion.tipoSesion || 'N/A'}
                         size="small"
                         sx={{
-                          bgcolor: '#667eea20',
-                          color: '#667eea',
+                          bgcolor: '#0d4d6120',
+                          color: '#0d4d61',
                           fontWeight: 600,
                         }}
                       />
@@ -366,7 +366,7 @@ const DetalleSesionModal = ({ open, onClose, sesionId, onUpdate }) => {
                         <Typography variant="body2" color="text.secondary" sx={{ mb: 0.5 }}>
                           Número de Sesión
                         </Typography>
-                        <Typography variant="body1" sx={{ fontWeight: 600, color: '#667eea' }}>
+                        <Typography variant="body1" sx={{ fontWeight: 600, color: '#0d4d61' }}>
                           #{sesion.numeroSesion}
                         </Typography>
                       </Grid>
@@ -427,8 +427,8 @@ const DetalleSesionModal = ({ open, onClose, sesionId, onUpdate }) => {
                             label={sesion.detallesTratamiento.intensidad}
                             size="small"
                             sx={{
-                              bgcolor: '#667eea20',
-                              color: '#667eea',
+                              bgcolor: '#0d4d6120',
+                              color: '#0d4d61',
                               fontWeight: 600,
                               textTransform: 'capitalize',
                             }}
@@ -579,7 +579,7 @@ const DetalleSesionModal = ({ open, onClose, sesionId, onUpdate }) => {
                       bgcolor: '#edf2f7',
                       borderRadius: 2,
                       border: '1px solid #cbd5e0',
-                      borderLeft: '4px solid #667eea',
+                      borderLeft: '4px solid #0d4d61',
                     }}
                   >
                     <Typography variant="h6" sx={{ mb: 1, fontWeight: 600, color: '#2d3748' }}>
@@ -610,7 +610,7 @@ const DetalleSesionModal = ({ open, onClose, sesionId, onUpdate }) => {
                     <Stack direction="row" spacing={2} alignItems="center">
                       <Avatar
                         sx={{
-                          bgcolor: '#764ba2',
+                          bgcolor: '#6fb0b8',
                           width: 48,
                           height: 48,
                           fontSize: '1rem',
@@ -653,12 +653,12 @@ const DetalleSesionModal = ({ open, onClose, sesionId, onUpdate }) => {
                     <Grid container spacing={2}>
                       <Grid item xs={12} sm={6}>
                         <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 1 }}>
-                          <MoneyIcon sx={{ color: '#667eea', fontSize: 20 }} />
+                          <MoneyIcon sx={{ color: '#0d4d61', fontSize: 20 }} />
                           <Typography variant="body2" color="text.secondary">
                             Monto
                           </Typography>
                         </Stack>
-                        <Typography variant="h6" sx={{ fontWeight: 700, color: '#667eea' }}>
+                        <Typography variant="h6" sx={{ fontWeight: 700, color: '#0d4d61' }}>
                           ${(sesion.pago.monto || 0).toLocaleString()}
                         </Typography>
                       </Grid>

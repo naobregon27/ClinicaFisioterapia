@@ -136,7 +136,7 @@ const ListaSesionesTab = () => {
       cancelada: '#f56565',
       ausente: '#a0aec0',
     };
-    return colors[estado] || '#667eea';
+    return colors[estado] || '#0d4d61';
   };
 
   const getEstadoLabel = (estado) => {
@@ -148,6 +148,12 @@ const ListaSesionesTab = () => {
     };
     return labels[estado] || estado;
   };
+  const tableViewportHeight = {
+    xs: 'calc(100vh - 400px)',
+    md: 'calc(100vh - 350px)',
+  };
+  const shouldLimitTableHeight =
+    (pagination?.total || sesiones.length) > (pagination?.limit || rowsPerPage);
 
   return (
     <>
@@ -196,7 +202,7 @@ const ListaSesionesTab = () => {
         <LinearProgress
           sx={{
             height: 3,
-            background: 'linear-gradient(90deg, #667eea 0%, #764ba2 100%)',
+            background: 'linear-gradient(90deg, #0d4d61 0%, #6fb0b8 100%)',
           }}
         />
       )}
@@ -221,7 +227,10 @@ const ListaSesionesTab = () => {
             component={Paper}
             elevation={0}
             sx={{
-              maxHeight: { xs: 'calc(100vh - 400px)', md: 'calc(100vh - 350px)' },
+              ...(shouldLimitTableHeight && {
+                maxHeight: tableViewportHeight,
+                minHeight: tableViewportHeight,
+              }),
               overflowX: 'auto',
             }}
           >
@@ -299,7 +308,7 @@ const ListaSesionesTab = () => {
                         <Stack direction="row" spacing={1} alignItems="center">
                           <Avatar
                             sx={{
-                              bgcolor: '#667eea',
+                              bgcolor: '#0d4d61',
                               width: 32,
                               height: 32,
                               fontSize: '0.85rem',
@@ -333,8 +342,8 @@ const ListaSesionesTab = () => {
                               variant="outlined"
                               sx={{
                                 fontSize: '0.75rem',
-                                borderColor: '#667eea',
-                                color: '#667eea',
+                                borderColor: '#0d4d61',
+                                color: '#0d4d61',
                               }}
                             />
                           </TableCell>
@@ -360,7 +369,7 @@ const ListaSesionesTab = () => {
                               variant="body2"
                               sx={{
                                 fontWeight: 600,
-                                color: '#667eea',
+                                color: '#0d4d61',
                               }}
                             >
                               #{sesion.numeroSesion || sesion.numeroOrden || '-'}
@@ -408,9 +417,9 @@ const ListaSesionesTab = () => {
                             size="small"
                             onClick={() => handleVerDetalle(sesion._id || sesion.id)}
                             sx={{
-                              color: '#667eea',
+                              color: '#0d4d61',
                               '&:hover': {
-                                bgcolor: '#667eea15',
+                                bgcolor: '#0d4d6115',
                                 transform: 'scale(1.15)',
                               },
                               transition: 'all 0.2s ease',

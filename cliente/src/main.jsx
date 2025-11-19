@@ -11,19 +11,20 @@ import { ThemeProvider, createTheme, CssBaseline } from '@mui/material';
 import { store } from './app/store';
 import { router } from './app/router';
 import './index.css';
+import { brandPalette, brandGradients, brandShadows, brandAlpha } from './theme/brand';
 
 // Configuración del tema de Material-UI
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#667eea',
-      light: '#8596f5',
-      dark: '#4c5fd4',
+      main: brandPalette.primary,
+      light: brandPalette.primaryLight,
+      dark: brandPalette.primaryDark,
     },
     secondary: {
-      main: '#4CAF50',
-      light: '#6fbf73',
-      dark: '#357a38',
+      main: brandPalette.accent,
+      light: '#a8dfe4',
+      dark: '#4f7e84',
     },
     error: {
       main: '#f44336',
@@ -32,11 +33,15 @@ const theme = createTheme({
       main: '#ff9800',
     },
     success: {
-      main: '#4CAF50',
+      main: brandPalette.primaryLight,
     },
     background: {
-      default: '#f5f7fa',
+      default: brandPalette.neutral,
       paper: '#ffffff',
+    },
+    text: {
+      primary: brandPalette.text,
+      secondary: '#4a5c61',
     },
   },
   typography: {
@@ -70,21 +75,65 @@ const theme = createTheme({
     },
   },
   shape: {
-    borderRadius: 8,
+    borderRadius: 12,
   },
   components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        body: {
+          backgroundColor: brandPalette.neutral,
+          color: brandPalette.text,
+          minHeight: '100vh',
+          margin: 0,
+          overflowX: 'hidden',
+          fontFamily:
+            'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+        },
+        a: {
+          color: brandPalette.accent,
+        },
+      },
+    },
     MuiButton: {
       styleOverrides: {
         root: {
           textTransform: 'none',
           fontWeight: 600,
+          borderRadius: 999,
+          paddingInline: 20,
+        },
+        containedPrimary: {
+          background: brandGradients.primary,
+          boxShadow: brandShadows.button,
+          '&:hover': {
+            background: brandGradients.primaryInverse,
+            boxShadow: brandShadows.buttonHover,
+          },
         },
       },
     },
     MuiCard: {
       styleOverrides: {
         root: {
-          boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+          borderRadius: 20,
+          boxShadow: brandShadows.card,
+          border: `1px solid ${brandAlpha(0.08)}`,
+        },
+      },
+    },
+    MuiAppBar: {
+      styleOverrides: {
+        colorPrimary: {
+          background: brandGradients.primary,
+          borderBottom: '1px solid rgba(255,255,255,0.15)',
+        },
+      },
+    },
+    MuiChip: {
+      styleOverrides: {
+        colorPrimary: {
+          backgroundColor: `${brandPalette.primary}22`,
+          color: brandPalette.primaryDark,
         },
       },
     },

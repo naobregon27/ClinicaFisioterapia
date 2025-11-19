@@ -90,11 +90,11 @@ const DetallePacienteModal = ({ open, onClose, pacienteId, onEdit }) => {
     const colors = {
       activo: '#48bb78',
       inactivo: '#a0aec0',
-      alta: '#667eea',
+      alta: '#0d4d61',
       derivado: '#f6ad55',
       abandono: '#f56565',
     };
-    return colors[estado] || '#667eea';
+    return colors[estado] || '#0d4d61';
   };
 
   const getGeneroLabel = (genero) => {
@@ -118,7 +118,7 @@ const DetallePacienteModal = ({ open, onClose, pacienteId, onEdit }) => {
     return labels[modalidad] || modalidad;
   };
 
-  const InfoCard = ({ title, icon, children, color = '#667eea', delay = 0 }) => (
+  const InfoCard = ({ title, icon, children, color = '#0d4d61', delay = 0 }) => (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -192,7 +192,7 @@ const DetallePacienteModal = ({ open, onClose, pacienteId, onEdit }) => {
     </motion.div>
   );
 
-  const InfoRow = ({ label, value, icon, color = '#667eea' }) => (
+  const InfoRow = ({ label, value, icon, color = '#0d4d61' }) => (
     <motion.div
       initial={{ opacity: 0, x: -10 }}
       animate={{ opacity: 1, x: 0 }}
@@ -328,14 +328,14 @@ const DetallePacienteModal = ({ open, onClose, pacienteId, onEdit }) => {
         return (
           <Grid container spacing={3}>
             <Grid item xs={12} md={6}>
-              <InfoCard title="Datos Personales" icon={<PersonIcon sx={{ color: 'white', fontSize: 24 }} />} color="#667eea" delay={0.1}>
-                <InfoRow label="Nombre" value={paciente.nombre} color="#667eea" />
-                <InfoRow label="Apellido" value={paciente.apellido} color="#667eea" />
+              <InfoCard title="Datos Personales" icon={<PersonIcon sx={{ color: 'white', fontSize: 24 }} />} color="#0d4d61" delay={0.1}>
+                <InfoRow label="Nombre" value={paciente.nombre} color="#0d4d61" />
+                <InfoRow label="Apellido" value={paciente.apellido} color="#0d4d61" />
                 <InfoRow
                   label="DNI"
                   value={paciente.dni}
                   icon={<BadgeIcon />}
-                  color="#667eea"
+                  color="#0d4d61"
                 />
                 <InfoRow
                   label="Fecha de Nacimiento"
@@ -345,26 +345,26 @@ const DetallePacienteModal = ({ open, onClose, pacienteId, onEdit }) => {
                       : '-'
                   }
                   icon={<CalendarIcon />}
-                  color="#667eea"
+                  color="#0d4d61"
                 />
                 <InfoRow
                   label="Edad"
                   value={paciente.edadCalculada || paciente.edad ? `${paciente.edadCalculada || paciente.edad} años` : '-'}
-                  color="#667eea"
+                  color="#0d4d61"
                 />
-                <InfoRow label="Género" value={getGeneroLabel(paciente.genero)} color="#667eea" />
+                <InfoRow label="Género" value={getGeneroLabel(paciente.genero)} color="#0d4d61" />
                 <InfoRow
                   label="Teléfono"
                   value={paciente.telefono}
                   icon={<PhoneIcon />}
-                  color="#667eea"
+                  color="#0d4d61"
                 />
                 {paciente.telefonoAlternativo && (
                   <InfoRow
                     label="Teléfono Alternativo"
                     value={paciente.telefonoAlternativo}
                     icon={<LocalPhoneIcon />}
-                    color="#667eea"
+                    color="#0d4d61"
                   />
                 )}
                 {paciente.email && (
@@ -372,7 +372,7 @@ const DetallePacienteModal = ({ open, onClose, pacienteId, onEdit }) => {
                     label="Email"
                     value={paciente.email}
                     icon={<EmailIcon />}
-                    color="#667eea"
+                    color="#0d4d61"
                   />
                 )}
               </InfoCard>
@@ -638,13 +638,13 @@ const DetallePacienteModal = ({ open, onClose, pacienteId, onEdit }) => {
         return (
           <Grid container spacing={3}>
             <Grid item xs={12}>
-              <InfoCard title="Estadísticas" icon={<TrendingUpIcon sx={{ color: 'white', fontSize: 24 }} />} color="#667eea" delay={0.1}>
+              <InfoCard title="Estadísticas" icon={<TrendingUpIcon sx={{ color: 'white', fontSize: 24 }} />} color="#0d4d61" delay={0.1}>
                 <Grid container spacing={2}>
                   <Grid item xs={6} sm={3}>
                     <StatCard
                       value={paciente.estadisticas?.totalSesiones || 0}
                       label="Total Sesiones"
-                      color="#667eea"
+                      color="#0d4d61"
                       icon={<CalendarIcon sx={{ color: 'white', fontSize: 28 }} />}
                     />
                   </Grid>
@@ -779,7 +779,7 @@ const DetallePacienteModal = ({ open, onClose, pacienteId, onEdit }) => {
         <>
           <DialogTitle
             sx={{
-              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              background: 'linear-gradient(135deg, #0d4d61 0%, #6fb0b8 100%)',
               color: 'white',
               p: 0,
               position: 'relative',

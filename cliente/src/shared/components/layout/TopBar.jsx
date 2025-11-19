@@ -33,6 +33,7 @@ import { toggleSidebar, selectSidebarOpen } from '../../../features/ui/slices/ui
 import { logout, selectUser } from '../../../features/auth/slices/authSlice';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
+import { brandGradients, brandPalette } from '../../../theme/brand';
 
 const DRAWER_WIDTH = 280;
 
@@ -102,9 +103,9 @@ const TopBar = () => {
           easing: theme.transitions.easing.sharp,
           duration: theme.transitions.duration.leavingScreen,
         }),
-        backgroundColor: 'white',
-        color: '#333',
-        boxShadow: '0 2px 10px rgba(0,0,0,0.05)',
+        background: brandGradients.primary,
+        color: '#fff',
+        boxShadow: '0 12px 30px rgba(7,37,47,0.18)',
         zIndex: theme.zIndex.drawer + 1,
       }}
     >
@@ -117,9 +118,9 @@ const TopBar = () => {
           onClick={handleToggleSidebar}
           sx={{
             mr: { xs: 1, sm: 2 },
-            color: '#667eea',
+            color: 'inherit',
             '&:hover': {
-              bgcolor: '#667eea15',
+              bgcolor: 'rgba(255,255,255,0.12)',
             },
           }}
         >
@@ -131,7 +132,7 @@ const TopBar = () => {
           <Typography
             variant="body2"
             sx={{
-              color: '#666',
+              color: 'rgba(255,255,255,0.85)',
               textTransform: 'capitalize',
               fontSize: { xs: '0.8rem', sm: '0.875rem' },
             }}
@@ -146,9 +147,9 @@ const TopBar = () => {
           onClick={handleOpenNotifications}
           sx={{
             mr: { xs: 0.5, sm: 1 },
-            color: '#667eea',
+            color: 'inherit',
             '&:hover': {
-              bgcolor: '#667eea15',
+              bgcolor: 'rgba(255,255,255,0.12)',
             },
           }}
         >
@@ -211,7 +212,8 @@ const TopBar = () => {
             sx={{
               width: { xs: 36, sm: 40 },
               height: { xs: 36, sm: 40 },
-              backgroundColor: '#667eea',
+              backgroundColor: 'rgba(255,255,255,0.2)',
+              color: brandPalette.primary,
               fontSize: { xs: '0.9rem', sm: '1rem' },
             }}
           >

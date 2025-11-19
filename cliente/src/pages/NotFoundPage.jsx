@@ -9,7 +9,7 @@ const NotFoundPage = () => {
   return (
     <Container maxWidth="sm">
       <Box sx={{ textAlign: 'center', mt: 10 }}>
-        <SearchOffIcon sx={{ fontSize: 100, color: '#667eea', mb: 2 }} />
+        <SearchOffIcon sx={{ fontSize: 100, color: '#0d4d61', mb: 2 }} />
         <Typography variant="h3" sx={{ fontWeight: 700, mb: 2 }}>
           404 - Página No Encontrada
         </Typography>
@@ -19,7 +19,7 @@ const NotFoundPage = () => {
         <Button
           variant="contained"
           onClick={() => navigate('/dashboard')}
-          sx={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}
+          sx={{ background: 'linear-gradient(135deg, #0d4d61 0%, #6fb0b8 100%)' }}
         >
           Volver al Dashboard
         </Button>

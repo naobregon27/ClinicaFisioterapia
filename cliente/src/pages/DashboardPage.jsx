@@ -168,7 +168,7 @@ const DashboardPage = () => {
       cancelada: '#f56565',
       ausente: '#a0aec0',
     };
-    return colors[estado] || '#667eea';
+    return colors[estado] || '#0d4d61';
   };
 
   const getEstadoLabel = (estado) => {
@@ -182,7 +182,11 @@ const DashboardPage = () => {
   };
 
   return (
-    <Box sx={{ width: '100%', maxWidth: '1400px', mx: 'auto', px: { xs: 1, sm: 2, md: 3 } }}>
+    <Box
+      sx={{
+        width: '100%',
+      }}
+    >
       {/* Header con animación */}
       <motion.div
         initial={{ opacity: 0, x: -20 }}
@@ -195,7 +199,7 @@ const DashboardPage = () => {
             sx={{
               fontWeight: 700,
               mb: 1,
-              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              background: 'linear-gradient(135deg, #0d4d61 0%, #6fb0b8 100%)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
             }}
@@ -222,7 +226,7 @@ const DashboardPage = () => {
             title="Sesiones del Día"
             value={resumen.totalSesiones}
             icon={<EventNoteIcon />}
-            color="#667eea"
+            color="#0d4d61"
             subtitle={`${resumen.sesionesRealizadas} realizadas`}
             loading={loading}
           />
@@ -293,14 +297,14 @@ const DashboardPage = () => {
                     onClick={() => navigate('/sesiones')}
                     size="large"
                     sx={{
-                      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                      background: 'linear-gradient(135deg, #0d4d61 0%, #6fb0b8 100%)',
                       py: 1.5,
                       borderRadius: 2,
                       textTransform: 'none',
                       fontWeight: 600,
                       boxShadow: '0 4px 12px rgba(102, 126, 234, 0.4)',
                       '&:hover': {
-                        background: 'linear-gradient(135deg, #5568d3 0%, #6a4093 100%)',
+                        background: 'linear-gradient(135deg, #0b3c4d 0%, #6a4093 100%)',
                         boxShadow: '0 6px 16px rgba(102, 126, 234, 0.5)',
                         transform: 'translateY(-2px)',
                       },
@@ -323,8 +327,8 @@ const DashboardPage = () => {
                       borderColor: '#e2e8f0',
                       color: '#4a5568',
                       '&:hover': {
-                        borderColor: '#667eea',
-                        backgroundColor: '#667eea10',
+                        borderColor: '#0d4d61',
+                        backgroundColor: '#0d4d6110',
                         transform: 'translateY(-2px)',
                       },
                       transition: 'all 0.3s ease',
@@ -346,8 +350,8 @@ const DashboardPage = () => {
                       borderColor: '#e2e8f0',
                       color: '#4a5568',
                       '&:hover': {
-                        borderColor: '#667eea',
-                        backgroundColor: '#667eea10',
+                        borderColor: '#0d4d61',
+                        backgroundColor: '#0d4d6110',
                         transform: 'translateY(-2px)',
                       },
                       transition: 'all 0.3s ease',
@@ -369,8 +373,8 @@ const DashboardPage = () => {
                       borderColor: '#e2e8f0',
                       color: '#4a5568',
                       '&:hover': {
-                        borderColor: '#667eea',
-                        backgroundColor: '#667eea10',
+                        borderColor: '#0d4d61',
+                        backgroundColor: '#0d4d6110',
                         transform: 'translateY(-2px)',
                       },
                       transition: 'all 0.3s ease',
@@ -429,7 +433,7 @@ const DashboardPage = () => {
                     <Button
                       variant="outlined"
                       startIcon={<AddIcon />}
-                      onClick={() => navigate('/sesiones/nueva')}
+                      onClick={() => navigate('/sesiones')}
                       sx={{ mt: 2 }}
                     >
                       Agregar Sesión

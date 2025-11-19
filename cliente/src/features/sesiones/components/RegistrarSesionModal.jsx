@@ -142,7 +142,7 @@ const RegistrarSesionModal = ({ open, onClose, paciente, onSuccess }) => {
     >
       <DialogTitle
         sx={{
-          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+          background: 'linear-gradient(135deg, #0d4d61 0%, #6fb0b8 100%)',
           color: 'white',
           display: 'flex',
           justifyContent: 'space-between',
@@ -388,11 +388,11 @@ const RegistrarSesionModal = ({ open, onClose, paciente, onSuccess }) => {
             disabled={loading}
             startIcon={loading ? <CircularProgress size={16} color="inherit" /> : <EventNoteIcon />}
             sx={{
-              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              background: 'linear-gradient(135deg, #0d4d61 0%, #6fb0b8 100%)',
               textTransform: 'none',
               fontWeight: 600,
               '&:hover': {
-                background: 'linear-gradient(135deg, #5568d3 0%, #6a4093 100%)',
+                background: 'linear-gradient(135deg, #0b3c4d 0%, #6a4093 100%)',
               },
               '&:disabled': {
                 background: '#cbd5e0',

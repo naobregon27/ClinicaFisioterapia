@@ -124,7 +124,7 @@ const Sidebar = () => {
         '& .MuiDrawer-paper': {
           width: DRAWER_WIDTH,
           boxSizing: 'border-box',
-          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+          background: 'linear-gradient(135deg, #0d4d61 0%, #6fb0b8 100%)',
           color: 'white',
           borderRight: 'none',
         },
