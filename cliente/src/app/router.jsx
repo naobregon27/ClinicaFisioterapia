@@ -26,6 +26,11 @@ const PerfilPage = lazy(() => import('../pages/PerfilPage'));
 const ConfiguracionPage = lazy(() => import('../pages/ConfiguracionPage'));
 const UnauthorizedPage = lazy(() => import('../pages/UnauthorizedPage'));
 const NotFoundPage = lazy(() => import('../pages/NotFoundPage'));
+const AdminDashboardPage = lazy(() => import('../features/admin/pages/AdminDashboardPage'));
+const AdminUsuariosPage = lazy(() => import('../features/admin/pages/AdminUsuariosPage'));
+const AdminPlanillaPagosPage = lazy(() => import('../features/admin/pages/AdminPlanillaPagosPage'));
+const AdminAuditoriaPage = lazy(() => import('../features/admin/pages/AdminAuditoriaPage'));
+const AdminReportesPage = lazy(() => import('../features/admin/pages/AdminReportesPage'));
 
 // Wrapper para aplicar Suspense
 const SuspenseWrapper = ({ children }) => (
@@ -77,6 +82,72 @@ export const router = createBrowserRouter(
         <MainLayout>
           <SuspenseWrapper>
             <DashboardPage />
+          </SuspenseWrapper>
+        </MainLayout>
+      </ProtectedRoute>
+    ),
+  },
+
+  // === ADMINISTRADOR ===
+  {
+    path: '/admin',
+    element: <Navigate to="/admin/dashboard" replace />,
+  },
+  {
+    path: '/admin/dashboard',
+    element: (
+      <ProtectedRoute allowedRoles={['administrador']}>
+        <MainLayout>
+          <SuspenseWrapper>
+            <AdminDashboardPage />
+          </SuspenseWrapper>
+        </MainLayout>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/admin/usuarios',
+    element: (
+      <ProtectedRoute allowedRoles={['administrador']}>
+        <MainLayout>
+          <SuspenseWrapper>
+            <AdminUsuariosPage />
+          </SuspenseWrapper>
+        </MainLayout>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/admin/pagos-personal',
+    element: (
+      <ProtectedRoute allowedRoles={['administrador']}>
+        <MainLayout>
+          <SuspenseWrapper>
+            <AdminPlanillaPagosPage />
+          </SuspenseWrapper>
+        </MainLayout>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/admin/auditoria',
+    element: (
+      <ProtectedRoute allowedRoles={['administrador']}>
+        <MainLayout>
+          <SuspenseWrapper>
+            <AdminAuditoriaPage />
+          </SuspenseWrapper>
+        </MainLayout>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/admin/reportes',
+    element: (
+      <ProtectedRoute allowedRoles={['administrador']}>
+        <MainLayout>
+          <SuspenseWrapper>
+            <AdminReportesPage />
           </SuspenseWrapper>
         </MainLayout>
       </ProtectedRoute>

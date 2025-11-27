@@ -139,6 +139,12 @@ const DashboardPage = () => {
   const loading = useSelector(selectSesionesLoading);
 
   useEffect(() => {
+    if (user?.rol === 'administrador') {
+      navigate('/admin/dashboard', { replace: true });
+    }
+  }, [user, navigate]);
+
+  useEffect(() => {
     cargarDatos();
   }, []);
 

@@ -30,6 +30,8 @@ import {
   Menu as MenuIcon,
   Person as PersonIcon,
   Payment as PaymentIcon,
+  AdminPanelSettings as AdminPanelSettingsIcon,
+  Security as SecurityIcon,
 } from '@mui/icons-material';
 import { toggleSidebar, selectSidebarOpen } from '../../../features/ui/slices/uiSlice';
 import { selectUser } from '../../../features/auth/slices/authSlice';
@@ -51,6 +53,12 @@ const Sidebar = () => {
       icon: <DashboardIcon />,
       path: '/dashboard',
       roles: ['usuario', 'empleado', 'administrador'],
+    },
+    {
+      text: 'Panel Admin',
+      icon: <AdminPanelSettingsIcon />,
+      path: '/admin/dashboard',
+      roles: ['administrador'],
     },
     {
       text: 'Pacientes',
@@ -79,13 +87,25 @@ const Sidebar = () => {
     {
       text: 'Reportes',
       icon: <AssessmentIcon />,
-      path: '/reportes',
-      roles: ['empleado', 'administrador'],
+      path: '/admin/reportes',
+      roles: ['administrador'],
     },
     {
       text: 'Usuarios',
       icon: <PersonIcon />,
-      path: '/usuarios',
+      path: '/admin/usuarios',
+      roles: ['administrador'],
+    },
+    {
+      text: 'Pagos Personal',
+      icon: <PaymentIcon />,
+      path: '/admin/pagos-personal',
+      roles: ['administrador'],
+    },
+    {
+      text: 'Auditoría',
+      icon: <SecurityIcon />,
+      path: '/admin/auditoria',
       roles: ['administrador'],
     },
     {
