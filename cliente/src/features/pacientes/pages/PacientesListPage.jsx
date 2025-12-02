@@ -42,6 +42,8 @@ import {
   Block as BlockIcon,
   LocalHospital as HospitalIcon,
   Assessment as AssessmentIcon,
+  FileDownload as FileDownloadIcon,
+  Print as PrintIcon,
 } from '@mui/icons-material';
 import { motion } from 'framer-motion';
 import {
@@ -62,6 +64,7 @@ import CambioEstadoPacienteModal from '../components/CambioEstadoPacienteModal';
 import LoadingSpinner from '../../../shared/components/ui/LoadingSpinner';
 import toast from 'react-hot-toast';
 import { debounce } from 'lodash';
+import { exportToExcel, printPage, generateTableHTML } from '../../../utils/exportUtils';
 
 const PacientesListPage = () => {
   const dispatch = useDispatch();
@@ -309,8 +312,91 @@ const PacientesListPage = () => {
     return motivoEncontrado;
   };
 
+  const handleExportarExcel = () => {
+    try {
+      const columns = [
+        { key: 'nombreCompleto', label: 'Paciente' },
+        { key: 'dni', label: 'DNI' },
+        { key: 'telefono', label: 'Teléfono' },
+        { key: 'email', label: 'Email' },
+        { key: 'obraSocialNombre', label: 'Obra Social' },
+        { key: 'estado', label: 'Estado' },
+        { key: 'sesionesTotales', label: 'Sesiones Totales' },
+        { key: 'sesionesPlan', label: 'Sesiones Plan' },
+        { key: 'montoPagado', label: 'Monto Pagado', format: 'currency' },
+        { key: 'montoAdeudado', label: 'Monto Adeudado', format: 'currency' },
+      ];
+
+      // Preparar datos para exportación
+      const datosExportar = pacientes.map((paciente) => {
+        const sesionesPlan = getTotalSesionesPlan(paciente);
+        const sesionesProgramadas = getSesionesProgramadas(paciente);
+        const saldoInfo = getSaldoInfo(paciente);
+        
+        return {
+          ...paciente,
+          nombreCompleto: paciente.nombreCompleto || `${paciente.nombre} ${paciente.apellido}`.trim(),
+          obraSocialNombre: paciente.obraSocial?.nombre || 'Particular',
+          sesionesTotales: sesionesProgramadas,
+          sesionesPlan: sesionesPlan,
+          montoPagado: saldoInfo.pagado,
+          montoAdeudado: saldoInfo.saldoPendiente,
+        };
+      });
+
+      exportToExcel(datosExportar, 'Pacientes', columns);
+      toast.success('Pacientes exportados exitosamente');
+    } catch (error) {
+      toast.error('Error al exportar los pacientes');
+      console.error(error);
+    }
+  };
+
+  const handleImprimir = () => {
+    try {
+      const columns = [
+        { key: 'nombreCompleto', label: 'Paciente' },
+        { key: 'dni', label: 'DNI' },
+        { key: 'telefono', label: 'Teléfono' },
+        { key: 'email', label: 'Email' },
+        { key: 'obraSocialNombre', label: 'Obra Social' },
+        { key: 'estado', label: 'Estado' },
+        { key: 'sesionesTotales', label: 'Sesiones Totales' },
+        { key: 'sesionesPlan', label: 'Sesiones Plan' },
+        { key: 'montoPagado', label: 'Monto Pagado', format: 'currency' },
+        { key: 'montoAdeudado', label: 'Monto Adeudado', format: 'currency' },
+      ];
+
+      // Preparar datos para impresión
+      const datosImprimir = pacientes.map((paciente) => {
+        const sesionesPlan = getTotalSesionesPlan(paciente);
+        const sesionesProgramadas = getSesionesProgramadas(paciente);
+        const saldoInfo = getSaldoInfo(paciente);
+        
+        return {
+          ...paciente,
+          nombreCompleto: paciente.nombreCompleto || `${paciente.nombre} ${paciente.apellido}`.trim(),
+          obraSocialNombre: paciente.obraSocial?.nombre || 'Particular',
+          sesionesTotales: sesionesProgramadas,
+          sesionesPlan: sesionesPlan,
+          montoPagado: saldoInfo.pagado,
+          montoAdeudado: saldoInfo.saldoPendiente,
+        };
+      });
+
+      const title = `Lista de Pacientes - ${pagination?.total || 0} pacientes`;
+      
+      printPage(title, () => {
+        return generateTableHTML(datosImprimir, columns, title);
+      });
+    } catch (error) {
+      toast.error('Error al imprimir los pacientes');
+      console.error(error);
+    }
+  };
+
   return (
-    <Box sx={{ width: '100%', maxWidth: '100%', mx: 0, px: 0 }}>
+    <Box sx={{ width: '100%', maxWidth: '100%', mx: 0, px: 0, overflowX: 'auto', boxSizing: 'border-box' }}>
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
@@ -344,7 +430,51 @@ const PacientesListPage = () => {
               {pagination?.total || 0} {pagination?.total === 1 ? 'paciente' : 'pacientes'} registrados
             </Typography>
           </Box>
-          <Stack direction="row" spacing={1.5}>
+          <Stack direction="row" spacing={1.5} flexWrap="wrap">
+            <Button
+              variant="outlined"
+              startIcon={<FileDownloadIcon />}
+              onClick={handleExportarExcel}
+              disabled={loading || pacientes.length === 0}
+              size={isMobile ? 'medium' : 'large'}
+              sx={{
+                borderRadius: 2,
+                textTransform: 'none',
+                fontWeight: 600,
+                borderColor: '#0d4d61',
+                color: '#0d4d61',
+                '&:hover': {
+                  borderColor: '#0b3c4d',
+                  bgcolor: '#0d4d6110',
+                  transform: 'translateY(-2px)',
+                },
+                transition: 'all 0.3s ease',
+              }}
+            >
+              Exportar a Excel
+            </Button>
+            <Button
+              variant="outlined"
+              startIcon={<PrintIcon />}
+              onClick={handleImprimir}
+              disabled={loading || pacientes.length === 0}
+              size={isMobile ? 'medium' : 'large'}
+              sx={{
+                borderRadius: 2,
+                textTransform: 'none',
+                fontWeight: 600,
+                borderColor: '#0d4d61',
+                color: '#0d4d61',
+                '&:hover': {
+                  borderColor: '#0b3c4d',
+                  bgcolor: '#0d4d6110',
+                  transform: 'translateY(-2px)',
+                },
+                transition: 'all 0.3s ease',
+              }}
+            >
+              Imprimir
+            </Button>
             <Button
               variant="outlined"
               startIcon={<AssessmentIcon />}
@@ -510,6 +640,22 @@ const PacientesListPage = () => {
                 minHeight: tableViewportHeight,
               }),
               overflowX: 'auto',
+              overflowY: 'auto',
+              width: '100%',
+              '&::-webkit-scrollbar': {
+                height: '8px',
+                width: '8px',
+              },
+              '&::-webkit-scrollbar-track': {
+                background: '#f1f1f1',
+              },
+              '&::-webkit-scrollbar-thumb': {
+                background: '#0d4d61',
+                borderRadius: '4px',
+              },
+              '&::-webkit-scrollbar-thumb:hover': {
+                background: '#0b3c4d',
+              },
             }}
           >
             <Table stickyHeader>

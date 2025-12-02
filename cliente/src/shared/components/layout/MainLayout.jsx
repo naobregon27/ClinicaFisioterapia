@@ -51,7 +51,23 @@ const MainLayout = ({ children }) => {
             width: '100%',
             maxWidth: '100%',
             mx: 0,
-            overflowX: 'hidden',
+            overflowX: 'auto',
+            overflowY: 'auto',
+            boxSizing: 'border-box',
+            '&::-webkit-scrollbar': {
+              height: '8px',
+              width: '8px',
+            },
+            '&::-webkit-scrollbar-track': {
+              background: '#f1f1f1',
+            },
+            '&::-webkit-scrollbar-thumb': {
+              background: '#0d4d61',
+              borderRadius: '4px',
+            },
+            '&::-webkit-scrollbar-thumb:hover': {
+              background: '#0b3c4d',
+            },
           }}
         >
           {children}

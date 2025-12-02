@@ -29,6 +29,9 @@ const SesionesPage = () => {
     <Box
       sx={{
         width: '100%',
+        maxWidth: '100%',
+        overflowX: 'auto',
+        boxSizing: 'border-box',
       }}
     >
       {/* Header */}

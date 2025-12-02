@@ -38,6 +38,8 @@ import {
   AttachMoney as MoneyIcon,
   Schedule as ScheduleIcon,
   CalendarMonth as CalendarMonthIcon,
+  FileDownload as FileDownloadIcon,
+  Print as PrintIcon,
 } from '@mui/icons-material';
 import { motion } from 'framer-motion';
 import {
@@ -65,6 +67,7 @@ import RegistrarPagoModal from '../components/RegistrarPagoModal';
 import LoadingSpinner from '../../../shared/components/ui/LoadingSpinner';
 import sesionService from '../../../services/sesionService';
 import toast from 'react-hot-toast';
+import { exportToExcel, printPage, generateTableHTML } from '../../../utils/exportUtils';
 
 const getMonthKey = (date) => format(date, 'yyyy-MM');
 
@@ -335,6 +338,75 @@ const PlanillaDiariaPage = () => {
     handleCerrarCalendario();
   };
 
+  const handleExportarExcel = () => {
+    try {
+      const columns = [
+        { key: 'numeroOrden', label: 'N° Orden' },
+        { key: 'paciente.nombreCompleto', label: 'Paciente' },
+        { key: 'paciente.dni', label: 'DNI' },
+        { key: 'paciente.obraSocial.nombre', label: 'Obra Social' },
+        { key: 'horaEntrada', label: 'Hora Entrada' },
+        { key: 'horaSalida', label: 'Hora Salida' },
+        { key: 'duracion', label: 'Duración (min)' },
+        { key: 'pago.monto', label: 'Monto', format: 'currency' },
+        { key: 'pago.pagado', label: 'Pago', format: (val) => (val ? 'Pagado' : 'Pendiente') },
+        { key: 'estado', label: 'Estado' },
+      ];
+
+      // Preparar datos para exportación
+      const datosExportar = sesiones.map((sesion) => ({
+        ...sesion,
+        pacienteNombre: sesion.paciente?.nombreCompleto || `${sesion.paciente?.nombre || ''} ${sesion.paciente?.apellido || ''}`.trim(),
+        pacienteDni: sesion.paciente?.dni || '',
+        obraSocialNombre: sesion.paciente?.obraSocial?.nombre || 'Particular',
+        monto: sesion.pago?.monto || 0,
+        pagado: sesion.pago?.pagado || false,
+      }));
+
+      exportToExcel(datosExportar, `Planilla_Diaria_${format(fecha, 'yyyy-MM-dd')}`, columns);
+      toast.success('Planilla exportada exitosamente');
+    } catch (error) {
+      toast.error('Error al exportar la planilla');
+      console.error(error);
+    }
+  };
+
+  const handleImprimir = () => {
+    try {
+      const columns = [
+        { key: 'numeroOrden', label: 'N° Orden' },
+        { key: 'pacienteNombre', label: 'Paciente' },
+        { key: 'pacienteDni', label: 'DNI' },
+        { key: 'obraSocialNombre', label: 'Obra Social' },
+        { key: 'horaEntrada', label: 'Hora Entrada' },
+        { key: 'horaSalida', label: 'Hora Salida' },
+        { key: 'duracion', label: 'Duración (min)' },
+        { key: 'monto', label: 'Monto', format: 'currency' },
+        { key: 'pagado', label: 'Pago', format: (val) => (val ? 'Pagado' : 'Pendiente') },
+        { key: 'estado', label: 'Estado' },
+      ];
+
+      // Preparar datos para impresión
+      const datosImprimir = sesiones.map((sesion) => ({
+        ...sesion,
+        pacienteNombre: sesion.paciente?.nombreCompleto || `${sesion.paciente?.nombre || ''} ${sesion.paciente?.apellido || ''}`.trim(),
+        pacienteDni: sesion.paciente?.dni || '',
+        obraSocialNombre: sesion.paciente?.obraSocial?.nombre || 'Particular',
+        monto: sesion.pago?.monto || 0,
+        pagado: sesion.pago?.pagado || false,
+      }));
+
+      const title = `Planilla Diaria - ${format(fecha, "dd 'de' MMMM 'de' yyyy", { locale: es })}`;
+      
+      printPage(title, () => {
+        return generateTableHTML(datosImprimir, columns, title);
+      });
+    } catch (error) {
+      toast.error('Error al imprimir la planilla');
+      console.error(error);
+    }
+  };
+
   const getEstadoColor = (estado) => {
     const colors = {
       realizada: '#48bb78',
@@ -410,6 +482,9 @@ const PlanillaDiariaPage = () => {
     <Box
       sx={{
         width: '100%',
+        maxWidth: '100%',
+        overflowX: 'auto',
+        boxSizing: 'border-box',
       }}
     >
       {/* Header con navegación de fechas */}
@@ -514,7 +589,25 @@ const PlanillaDiariaPage = () => {
             </Tooltip>
           </Box>
 
-          <Stack direction="row" spacing={1}>
+          <Stack direction="row" spacing={1} flexWrap="wrap">
+            <Button
+              variant="outlined"
+              startIcon={<FileDownloadIcon />}
+              onClick={handleExportarExcel}
+              disabled={loading || sesiones.length === 0}
+              sx={{ textTransform: 'none' }}
+            >
+              Exportar a Excel
+            </Button>
+            <Button
+              variant="outlined"
+              startIcon={<PrintIcon />}
+              onClick={handleImprimir}
+              disabled={loading || sesiones.length === 0}
+              sx={{ textTransform: 'none' }}
+            >
+              Imprimir
+            </Button>
             <Button
               variant="outlined"
               startIcon={<RefreshIcon />}
@@ -813,6 +906,22 @@ const PlanillaDiariaPage = () => {
               sx={{
                 maxHeight: { xs: 'calc(100vh - 500px)', md: 'calc(100vh - 450px)' },
                 overflowX: 'auto',
+                overflowY: 'auto',
+                width: '100%',
+                '&::-webkit-scrollbar': {
+                  height: '8px',
+                  width: '8px',
+                },
+                '&::-webkit-scrollbar-track': {
+                  background: '#f1f1f1',
+                },
+                '&::-webkit-scrollbar-thumb': {
+                  background: '#0d4d61',
+                  borderRadius: '4px',
+                },
+                '&::-webkit-scrollbar-thumb:hover': {
+                  background: '#0b3c4d',
+                },
               }}
             >
               <Table stickyHeader>

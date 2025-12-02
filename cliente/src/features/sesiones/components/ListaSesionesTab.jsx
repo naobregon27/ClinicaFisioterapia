@@ -31,6 +31,8 @@ import {
   CheckCircle as CheckCircleIcon,
   Cancel as CancelIcon,
   Schedule as ScheduleIcon,
+  FileDownload as FileDownloadIcon,
+  Print as PrintIcon,
 } from '@mui/icons-material';
 import { motion } from 'framer-motion';
 import { format } from 'date-fns';
@@ -43,6 +45,8 @@ import { debounce } from 'lodash';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
+import { exportToExcel, printPage, generateTableHTML } from '../../../utils/exportUtils';
+import Button from '@mui/material/Button';
 
 const ListaSesionesTab = () => {
   const theme = useTheme();
@@ -155,9 +159,84 @@ const ListaSesionesTab = () => {
   const shouldLimitTableHeight =
     (pagination?.total || sesiones.length) > (pagination?.limit || rowsPerPage);
 
+  const handleExportarExcel = () => {
+    try {
+      const columns = [
+        { key: 'fecha', label: 'Fecha', format: 'date' },
+        { key: 'pacienteNombre', label: 'Paciente' },
+        { key: 'pacienteDni', label: 'DNI' },
+        { key: 'obraSocialNombre', label: 'Obra Social' },
+        { key: 'horaEntrada', label: 'Hora Entrada' },
+        { key: 'horaSalida', label: 'Hora Salida' },
+        { key: 'duracion', label: 'Duración (min)' },
+        { key: 'numeroSesion', label: 'N° Sesión' },
+        { key: 'monto', label: 'Monto', format: 'currency' },
+        { key: 'pagado', label: 'Pago', format: (val) => (val ? 'Pagado' : 'Pendiente') },
+        { key: 'estado', label: 'Estado' },
+      ];
+
+      // Preparar datos para exportación
+      const datosExportar = sesiones.map((sesion) => ({
+        ...sesion,
+        fecha: sesion.fecha,
+        pacienteNombre: sesion.paciente?.nombreCompleto || `${sesion.paciente?.nombre || ''} ${sesion.paciente?.apellido || ''}`.trim(),
+        pacienteDni: sesion.paciente?.dni || '',
+        obraSocialNombre: sesion.paciente?.obraSocial?.nombre || 'Particular',
+        numeroSesion: sesion.numeroSesion || sesion.numeroOrden || '',
+        monto: sesion.pago?.monto || 0,
+        pagado: sesion.pago?.pagado || false,
+      }));
+
+      exportToExcel(datosExportar, 'Sesiones', columns);
+      toast.success('Sesiones exportadas exitosamente');
+    } catch (error) {
+      toast.error('Error al exportar las sesiones');
+      console.error(error);
+    }
+  };
+
+  const handleImprimir = () => {
+    try {
+      const columns = [
+        { key: 'fecha', label: 'Fecha', format: 'date' },
+        { key: 'pacienteNombre', label: 'Paciente' },
+        { key: 'pacienteDni', label: 'DNI' },
+        { key: 'obraSocialNombre', label: 'Obra Social' },
+        { key: 'horaEntrada', label: 'Hora Entrada' },
+        { key: 'horaSalida', label: 'Hora Salida' },
+        { key: 'duracion', label: 'Duración (min)' },
+        { key: 'numeroSesion', label: 'N° Sesión' },
+        { key: 'monto', label: 'Monto', format: 'currency' },
+        { key: 'pagado', label: 'Pago', format: (val) => (val ? 'Pagado' : 'Pendiente') },
+        { key: 'estado', label: 'Estado' },
+      ];
+
+      // Preparar datos para impresión
+      const datosImprimir = sesiones.map((sesion) => ({
+        ...sesion,
+        fecha: sesion.fecha,
+        pacienteNombre: sesion.paciente?.nombreCompleto || `${sesion.paciente?.nombre || ''} ${sesion.paciente?.apellido || ''}`.trim(),
+        pacienteDni: sesion.paciente?.dni || '',
+        obraSocialNombre: sesion.paciente?.obraSocial?.nombre || 'Particular',
+        numeroSesion: sesion.numeroSesion || sesion.numeroOrden || '',
+        monto: sesion.pago?.monto || 0,
+        pagado: sesion.pago?.pagado || false,
+      }));
+
+      const title = `Lista de Sesiones - ${pagination?.total || sesiones.length} sesiones`;
+      
+      printPage(title, () => {
+        return generateTableHTML(datosImprimir, columns, title);
+      });
+    } catch (error) {
+      toast.error('Error al imprimir las sesiones');
+      console.error(error);
+    }
+  };
+
   return (
     <>
-      {/* Buscador */}
+      {/* Buscador y Botones */}
       <Card
         elevation={3}
         sx={{
@@ -168,25 +247,48 @@ const ListaSesionesTab = () => {
           border: '1px solid #e2e8f0',
         }}
       >
-        <TextField
-          placeholder="Buscar por fecha, paciente, DNI, obra social..."
-          fullWidth
-          value={busqueda}
-          onChange={handleSearchChange}
-          sx={{
-            '& .MuiOutlinedInput-root': {
-              borderRadius: 2,
-              bgcolor: 'white',
-            },
-          }}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <SearchIcon sx={{ color: 'text.secondary' }} />
-              </InputAdornment>
-            ),
-          }}
-        />
+        <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} alignItems={{ xs: 'stretch', sm: 'center' }}>
+          <TextField
+            placeholder="Buscar por fecha, paciente, DNI, obra social..."
+            fullWidth
+            value={busqueda}
+            onChange={handleSearchChange}
+            sx={{
+              flex: 1,
+              '& .MuiOutlinedInput-root': {
+                borderRadius: 2,
+                bgcolor: 'white',
+              },
+            }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon sx={{ color: 'text.secondary' }} />
+                </InputAdornment>
+              ),
+            }}
+          />
+          <Stack direction="row" spacing={1}>
+            <Button
+              variant="outlined"
+              startIcon={<FileDownloadIcon />}
+              onClick={handleExportarExcel}
+              disabled={loading || sesiones.length === 0}
+              sx={{ textTransform: 'none' }}
+            >
+              Exportar a Excel
+            </Button>
+            <Button
+              variant="outlined"
+              startIcon={<PrintIcon />}
+              onClick={handleImprimir}
+              disabled={loading || sesiones.length === 0}
+              sx={{ textTransform: 'none' }}
+            >
+              Imprimir
+            </Button>
+          </Stack>
+        </Stack>
       </Card>
 
       <Card
@@ -232,6 +334,22 @@ const ListaSesionesTab = () => {
                 minHeight: tableViewportHeight,
               }),
               overflowX: 'auto',
+              overflowY: 'auto',
+              width: '100%',
+              '&::-webkit-scrollbar': {
+                height: '8px',
+                width: '8px',
+              },
+              '&::-webkit-scrollbar-track': {
+                background: '#f1f1f1',
+              },
+              '&::-webkit-scrollbar-thumb': {
+                background: '#0d4d61',
+                borderRadius: '4px',
+              },
+              '&::-webkit-scrollbar-thumb:hover': {
+                background: '#0b3c4d',
+              },
             }}
           >
             <Table stickyHeader>
