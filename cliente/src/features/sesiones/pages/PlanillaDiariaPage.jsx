@@ -520,9 +520,6 @@ const PlanillaDiariaPage = () => {
       sx={{
         width: '100%',
         maxWidth: '100%',
-        // Pequeño padding para no estar totalmente pegado
-        pl: { xs: 1, sm: 1.5, md: 2 },
-        pr: { xs: 1, sm: 1.5, md: 2 },
         pt: 0,
         pb: 2,
         overflowX: 'auto',

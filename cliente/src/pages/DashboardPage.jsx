@@ -133,16 +133,10 @@ const DashboardPage = () => {
   const dispatch = useDispatch();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  
+
   const user = useSelector(selectUser);
   const planilla = useSelector(selectPlanillaDiaria);
   const loading = useSelector(selectSesionesLoading);
-
-  useEffect(() => {
-    if (user?.rol === 'administrador') {
-      navigate('/admin/dashboard', { replace: true });
-    }
-  }, [user, navigate]);
 
   useEffect(() => {
     cargarDatos();
@@ -191,6 +185,11 @@ const DashboardPage = () => {
     <Box
       sx={{
         width: '100%',
+        maxWidth: '100%',
+        // Pequeño padding lateral para que no quede pegado al sidebar
+        pl: { xs: 1, sm: 1.5, md: 2 },
+        pr: { xs: 1, sm: 1.5, md: 2 },
+        pb: 2,
       }}
     >
       {/* Header con animación */}

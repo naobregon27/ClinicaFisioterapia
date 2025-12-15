@@ -44,8 +44,10 @@ const MainLayout = ({ children }) => {
         <Box
           sx={{
             mt: { xs: 7.5, md: 8.5 },
-            // SIN padding para que el contenido quede totalmente pegado
-            p: 0,
+            // Padding lateral uniforme para todas las páginas
+            pl: { xs: 1, sm: 1.5, md: 2 },
+            pr: { xs: 1, sm: 1.5, md: 2 },
+            pb: 2,
             m: 0,
             minHeight: 'calc(100vh - 64px)',
             width: '100%',

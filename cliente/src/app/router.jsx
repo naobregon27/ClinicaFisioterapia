@@ -22,15 +22,21 @@ const PlanillaDiariaPage = lazy(() => import('../features/sesiones/pages/Planill
 const SesionesPage = lazy(() => import('../features/sesiones/pages/SesionesPage'));
 const SesionFormPage = lazy(() => import('../features/sesiones/pages/SesionFormPage'));
 const PagosPendientesPage = lazy(() => import('../features/sesiones/pages/PagosPendientesPage'));
+
+// Páginas de perfil y configuración
 const PerfilPage = lazy(() => import('../pages/PerfilPage'));
 const ConfiguracionPage = lazy(() => import('../pages/ConfiguracionPage'));
-const UnauthorizedPage = lazy(() => import('../pages/UnauthorizedPage'));
-const NotFoundPage = lazy(() => import('../pages/NotFoundPage'));
+
+// Páginas de administración
 const AdminDashboardPage = lazy(() => import('../features/admin/pages/AdminDashboardPage'));
 const AdminUsuariosPage = lazy(() => import('../features/admin/pages/AdminUsuariosPage'));
 const AdminPlanillaPagosPage = lazy(() => import('../features/admin/pages/AdminPlanillaPagosPage'));
 const AdminAuditoriaPage = lazy(() => import('../features/admin/pages/AdminAuditoriaPage'));
 const AdminReportesPage = lazy(() => import('../features/admin/pages/AdminReportesPage'));
+
+// Páginas de error
+const UnauthorizedPage = lazy(() => import('../pages/UnauthorizedPage'));
+const NotFoundPage = lazy(() => import('../pages/NotFoundPage'));
 
 // Wrapper para aplicar Suspense
 const SuspenseWrapper = ({ children }) => (
@@ -75,6 +81,8 @@ export const router = createBrowserRouter(
   },
 
   // ========== RUTAS PROTEGIDAS (REQUIEREN AUTENTICACIÓN) ==========
+
+  // Dashboard general
   {
     path: '/dashboard',
     element: (
@@ -88,7 +96,7 @@ export const router = createBrowserRouter(
     ),
   },
 
-  // === ADMINISTRADOR ===
+  // ========== RUTAS ADMIN ==========
   {
     path: '/admin',
     element: <Navigate to="/admin/dashboard" replace />,
@@ -96,7 +104,7 @@ export const router = createBrowserRouter(
   {
     path: '/admin/dashboard',
     element: (
-      <ProtectedRoute allowedRoles={['administrador']}>
+      <ProtectedRoute>
         <MainLayout>
           <SuspenseWrapper>
             <AdminDashboardPage />
@@ -108,7 +116,7 @@ export const router = createBrowserRouter(
   {
     path: '/admin/usuarios',
     element: (
-      <ProtectedRoute allowedRoles={['administrador']}>
+      <ProtectedRoute>
         <MainLayout>
           <SuspenseWrapper>
             <AdminUsuariosPage />
@@ -120,7 +128,7 @@ export const router = createBrowserRouter(
   {
     path: '/admin/pagos-personal',
     element: (
-      <ProtectedRoute allowedRoles={['administrador']}>
+      <ProtectedRoute>
         <MainLayout>
           <SuspenseWrapper>
             <AdminPlanillaPagosPage />
@@ -132,7 +140,7 @@ export const router = createBrowserRouter(
   {
     path: '/admin/auditoria',
     element: (
-      <ProtectedRoute allowedRoles={['administrador']}>
+      <ProtectedRoute>
         <MainLayout>
           <SuspenseWrapper>
             <AdminAuditoriaPage />
@@ -144,7 +152,7 @@ export const router = createBrowserRouter(
   {
     path: '/admin/reportes',
     element: (
-      <ProtectedRoute allowedRoles={['administrador']}>
+      <ProtectedRoute>
         <MainLayout>
           <SuspenseWrapper>
             <AdminReportesPage />
