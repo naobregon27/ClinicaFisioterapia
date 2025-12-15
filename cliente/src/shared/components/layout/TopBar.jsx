@@ -91,14 +91,9 @@ const TopBar = () => {
     <AppBar
       position="fixed"
       sx={{
-        width: {
-          xs: '100%',
-          md: sidebarOpen ? `calc(100% - ${DRAWER_WIDTH}px)` : '100%',
-        },
-        ml: {
-          xs: 0,
-          md: sidebarOpen ? `${DRAWER_WIDTH}px` : 0,
-        },
+        width: '100%',
+        // Sin margen - totalmente pegado al borde izquierdo
+        ml: 0,
         transition: theme.transitions.create(['margin', 'width'], {
           easing: theme.transitions.easing.sharp,
           duration: theme.transitions.duration.leavingScreen,
@@ -109,15 +104,15 @@ const TopBar = () => {
         zIndex: theme.zIndex.drawer + 1,
       }}
     >
-      <Toolbar sx={{ px: { xs: 0.5, sm: 0.75, md: 1 } }}>
+      <Toolbar sx={{ px: { xs: 1, sm: 1.5, md: 2 }, minHeight: { xs: 56, sm: 64 } }}>
         {/* Botón Menu para abrir/cerrar sidebar */}
         <IconButton
-          edge="start"
           color="inherit"
           aria-label="menu"
           onClick={handleToggleSidebar}
           sx={{
             mr: { xs: 1, sm: 2 },
+            ml: { xs: -0.5, sm: -0.75, md: -1 },
             color: 'inherit',
             '&:hover': {
               bgcolor: 'rgba(255,255,255,0.12)',

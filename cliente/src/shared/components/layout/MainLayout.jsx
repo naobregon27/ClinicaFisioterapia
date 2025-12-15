@@ -29,7 +29,8 @@ const MainLayout = ({ children }) => {
         sx={{
           flexGrow: 1,
           width: '100%',
-          ml: { xs: 0, md: sidebarOpen ? `${DRAWER_WIDTH}px` : 0 },
+          // Sin margen izquierdo - totalmente pegado
+          ml: 0,
           transition: theme.transitions.create(['margin', 'width'], {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
@@ -42,15 +43,13 @@ const MainLayout = ({ children }) => {
         {/* Contenido */}
         <Box
           sx={{
-            mt: { xs: 6, md: 7 },
-            pl: { xs: 1, sm: 1.5, md: sidebarOpen ? 2 : 1.5 },
-            pr: { xs: 1, sm: 1.5, md: 2.5 },
-            pt: { xs: 0.75, sm: 1, md: 1.5 },
-            pb: { xs: 1, sm: 1.5, md: 2 },
+            mt: { xs: 7.5, md: 8.5 },
+            // SIN padding para que el contenido quede totalmente pegado
+            p: 0,
+            m: 0,
             minHeight: 'calc(100vh - 64px)',
             width: '100%',
-            maxWidth: '100%',
-            mx: 0,
+            maxWidth: '100vw',
             overflowX: 'auto',
             overflowY: 'auto',
             boxSizing: 'border-box',

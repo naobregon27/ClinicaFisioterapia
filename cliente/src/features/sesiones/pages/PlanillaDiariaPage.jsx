@@ -520,6 +520,11 @@ const PlanillaDiariaPage = () => {
       sx={{
         width: '100%',
         maxWidth: '100%',
+        // Pequeño padding para no estar totalmente pegado
+        pl: { xs: 1, sm: 1.5, md: 2 },
+        pr: { xs: 1, sm: 1.5, md: 2 },
+        pt: 0,
+        pb: 2,
         overflowX: 'auto',
         boxSizing: 'border-box',
       }}
@@ -536,22 +541,25 @@ const PlanillaDiariaPage = () => {
             flexDirection: { xs: 'column', sm: 'row' },
             justifyContent: 'space-between',
             alignItems: { xs: 'flex-start', sm: 'center' },
-            mb: 3,
-            gap: 2,
+            mb: 1,
+            mt: 0,
+            gap: { xs: 1, sm: 1.5 },
           }}
         >
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, flex: 1 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 0.75, sm: 1 }, flex: 1 }}>
             <IconButton
+              size="small"
               onClick={() => cambiarFecha(subDays(fecha, 1))}
               sx={{
                 bgcolor: '#f7fafc',
                 '&:hover': { bgcolor: '#edf2f7' },
+                p: 0.75,
               }}
             >
-              <ChevronLeftIcon />
+              <ChevronLeftIcon fontSize="small" />
             </IconButton>
 
-            <Box sx={{ textAlign: 'center', minWidth: { xs: 200, sm: 300 } }}>
+            <Box sx={{ textAlign: 'center', minWidth: { xs: 180, sm: 250 } }}>
               <Typography
                 variant={isMobile ? 'h6' : 'h5'}
                 sx={{
@@ -579,13 +587,15 @@ const PlanillaDiariaPage = () => {
             </Box>
 
             <IconButton
+              size="small"
               onClick={() => cambiarFecha(addDays(fecha, 1))}
               sx={{
                 bgcolor: '#f7fafc',
                 '&:hover': { bgcolor: '#edf2f7' },
+                p: 0.75,
               }}
             >
-              <ChevronRightIcon />
+              <ChevronRightIcon fontSize="small" />
             </IconButton>
 
             <Button
@@ -791,7 +801,7 @@ const PlanillaDiariaPage = () => {
       </Popover>
 
       {/* Resumen del día */}
-      <Grid container spacing={{ xs: 2, md: 3 }} sx={{ mb: 3 }}>
+      <Grid container spacing={{ xs: 1, md: 1.5 }} sx={{ mb: 1 }}>
         <Grid item xs={6} sm={4} md={2}>
           <Card
             elevation={3}
@@ -801,7 +811,7 @@ const PlanillaDiariaPage = () => {
               borderRadius: 3,
             }}
           >
-            <CardContent sx={{ p: 2, textAlign: 'center' }}>
+            <CardContent sx={{ p: 1.5, textAlign: 'center' }}>
               <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 600 }}>
                 Total Sesiones
               </Typography>
@@ -820,7 +830,7 @@ const PlanillaDiariaPage = () => {
               borderRadius: 3,
             }}
           >
-            <CardContent sx={{ p: 2, textAlign: 'center' }}>
+            <CardContent sx={{ p: 1.5, textAlign: 'center' }}>
               <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 600 }}>
                 Realizadas
               </Typography>
@@ -839,7 +849,7 @@ const PlanillaDiariaPage = () => {
               borderRadius: 3,
             }}
           >
-            <CardContent sx={{ p: 2, textAlign: 'center' }}>
+            <CardContent sx={{ p: 1.5, textAlign: 'center' }}>
               <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 600 }}>
                 Programadas
               </Typography>
@@ -858,7 +868,7 @@ const PlanillaDiariaPage = () => {
               borderRadius: 3,
             }}
           >
-            <CardContent sx={{ p: 2, textAlign: 'center' }}>
+            <CardContent sx={{ p: 1.5, textAlign: 'center' }}>
               <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 600 }}>
                 Canceladas
               </Typography>
@@ -877,7 +887,7 @@ const PlanillaDiariaPage = () => {
               borderRadius: 3,
             }}
           >
-            <CardContent sx={{ p: 2, textAlign: 'center' }}>
+            <CardContent sx={{ p: 1.5, textAlign: 'center' }}>
               <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 600 }}>
                 Recaudado
               </Typography>
@@ -896,7 +906,7 @@ const PlanillaDiariaPage = () => {
               borderRadius: 3,
             }}
           >
-            <CardContent sx={{ p: 2, textAlign: 'center' }}>
+            <CardContent sx={{ p: 1.5, textAlign: 'center' }}>
               <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 600 }}>
                 Pendiente
               </Typography>
