@@ -427,27 +427,64 @@ const PlanillaDiariaPage = () => {
     return labels[estado] || estado;
   };
 
-  // Usar estadísticas del mes si están disponibles, sino usar resumen del día
+  // Normalizar estructura de planilla recibida desde el backend
+  // El backend devuelve { fecha, sesiones, totales } pero la UI espera
+  // que cada sesión tenga un objeto `pago` y un posible `resumen`.
+  const sesionesCrudas = planilla?.sesiones || [];
+
+  const sesiones = useMemo(
+    () =>
+      sesionesCrudas.map((sesion) => {
+        const pagoNormalizado = sesion.pago || {
+          monto: sesion.monto ?? 0,
+          pagado: sesion.pagado ?? false,
+          metodoPago: sesion.metodoPago || null,
+        };
+
+        return {
+          ...sesion,
+          pago: pagoNormalizado,
+        };
+      }),
+    [sesionesCrudas]
+  );
+
+  // Usar estadísticas del mes si están disponibles, sino usar resumen/totales del día
   const resumen = estadisticas
     ? {
         totalSesiones: estadisticas.totalSesiones || 0,
         sesionesRealizadas: estadisticas.sesionesRealizadas ?? estadisticas.realizadas ?? 0,
         sesionesProgramadas:
-          estadisticas.sesionesProgramadas ?? planilla?.resumen?.sesionesProgramadas ?? 0,
-        sesionesCanceladas: estadisticas.sesionesCanceladas ?? estadisticas.canceladas ?? 0,
-        totalRecaudado: estadisticas.totalRecaudado ?? 0,
-        totalPendiente: estadisticas.totalPendiente ?? 0,
+          estadisticas.sesionesProgramadas ??
+          planilla?.resumen?.sesionesProgramadas ??
+          planilla?.totales?.programadas ??
+          0,
+        sesionesCanceladas:
+          estadisticas.sesionesCanceladas ??
+          estadisticas.canceladas ??
+          planilla?.totales?.canceladas ??
+          0,
+        totalRecaudado:
+          estadisticas.totalRecaudado ??
+          planilla?.totales?.totalRecaudado ??
+          0,
+        totalPendiente:
+          estadisticas.totalPendiente ??
+          planilla?.totales?.totalPendiente ??
+          0,
       }
     : planilla?.resumen || {
-        totalSesiones: 0,
-        sesionesRealizadas: 0,
-        sesionesProgramadas: 0,
-        sesionesCanceladas: 0,
-        totalRecaudado: 0,
-        totalPendiente: 0,
+        totalSesiones: planilla?.totales?.totalSesiones ?? 0,
+        sesionesRealizadas:
+          planilla?.totales?.realizadas ??
+          planilla?.totales?.totalRealizadas ??
+          0,
+        sesionesProgramadas: planilla?.totales?.programadas ?? 0,
+        sesionesCanceladas: planilla?.totales?.canceladas ?? 0,
+        totalRecaudado: planilla?.totales?.totalRecaudado ?? 0,
+        totalPendiente: planilla?.totales?.totalPendiente ?? 0,
       };
 
-  const sesiones = planilla?.sesiones || [];
   const diasSemana = ['L', 'M', 'X', 'J', 'V', 'S', 'D'];
 
   const diasCalendario = useMemo(() => {
