@@ -342,26 +342,58 @@ const PlanillaDiariaPage = () => {
     try {
       const columns = [
         { key: 'numeroOrden', label: 'N° Orden' },
-        { key: 'paciente.nombreCompleto', label: 'Paciente' },
-        { key: 'paciente.dni', label: 'DNI' },
-        { key: 'paciente.obraSocial.nombre', label: 'Obra Social' },
+        { key: 'pacienteNombre', label: 'Paciente' },
+        { key: 'pacienteDni', label: 'DNI' },
+        { key: 'obraSocialNombre', label: 'Obra Social' },
         { key: 'horaEntrada', label: 'Hora Entrada' },
         { key: 'horaSalida', label: 'Hora Salida' },
         { key: 'duracion', label: 'Duración (min)' },
-        { key: 'pago.monto', label: 'Monto', format: 'currency' },
-        { key: 'pago.pagado', label: 'Pago', format: (val) => (val ? 'Pagado' : 'Pendiente') },
+        { key: 'monto', label: 'Monto', format: 'currency' },
+        { key: 'pagado', label: 'Pago', format: (val) => (val ? 'Pagado' : 'Pendiente') },
         { key: 'estado', label: 'Estado' },
       ];
 
       // Preparar datos para exportación
       const datosExportar = sesiones.map((sesion) => ({
         ...sesion,
+        numeroOrden: sesion.numeroOrden || '?',
         pacienteNombre: sesion.paciente?.nombreCompleto || `${sesion.paciente?.nombre || ''} ${sesion.paciente?.apellido || ''}`.trim(),
         pacienteDni: sesion.paciente?.dni || '',
         obraSocialNombre: sesion.paciente?.obraSocial?.nombre || 'Particular',
+        horaEntrada: sesion.horaEntrada || '-',
+        horaSalida: sesion.horaSalida || '-',
+        duracion: sesion.duracion || '-',
         monto: sesion.pago?.monto || 0,
         pagado: sesion.pago?.pagado || false,
+        estado: sesion.estado || '',
       }));
+
+      // Agregar fila de totales al final
+      datosExportar.push({
+        numeroOrden: '',
+        pacienteNombre: '',
+        pacienteDni: '',
+        obraSocialNombre: '',
+        horaEntrada: '',
+        horaSalida: '',
+        duracion: 'TOTAL RECAUDADO:',
+        monto: totalRecaudadoDia,
+        pagado: '',
+        estado: '',
+      });
+
+      datosExportar.push({
+        numeroOrden: '',
+        pacienteNombre: '',
+        pacienteDni: '',
+        obraSocialNombre: '',
+        horaEntrada: '',
+        horaSalida: '',
+        duracion: 'TOTAL PENDIENTE:',
+        monto: totalPendienteDia,
+        pagado: '',
+        estado: '',
+      });
 
       exportToExcel(datosExportar, `Planilla_Diaria_${format(fecha, 'yyyy-MM-dd')}`, columns);
       toast.success('Planilla exportada exitosamente');
@@ -399,7 +431,33 @@ const PlanillaDiariaPage = () => {
       const title = `Planilla Diaria - ${format(fecha, "dd 'de' MMMM 'de' yyyy", { locale: es })}`;
       
       printPage(title, () => {
-        return generateTableHTML(datosImprimir, columns, title);
+        let html = generateTableHTML(datosImprimir, columns, title);
+        
+        // Agregar totales al final
+        html += `
+          <div style="margin-top: 30px; padding: 15px; background-color: #f7fafc; border-radius: 8px;">
+            <table style="width: auto; border: none; margin: 0 auto;">
+              <tr style="border: none; background: none;">
+                <td style="border: none; padding: 10px 20px; font-weight: bold; font-size: 14pt;">
+                  Total Recaudado:
+                </td>
+                <td style="border: none; padding: 10px 20px; font-weight: bold; font-size: 14pt; color: #48bb78;">
+                  $${totalRecaudadoDia.toLocaleString('es-AR')}
+                </td>
+              </tr>
+              <tr style="border: none; background: none;">
+                <td style="border: none; padding: 10px 20px; font-weight: bold; font-size: 14pt;">
+                  Total Pendiente:
+                </td>
+                <td style="border: none; padding: 10px 20px; font-weight: bold; font-size: 14pt; color: #f56565;">
+                  $${totalPendienteDia.toLocaleString('es-AR')}
+                </td>
+              </tr>
+            </table>
+          </div>
+        `;
+        
+        return html;
       });
     } catch (error) {
       toast.error('Error al imprimir la planilla');
@@ -427,6 +485,27 @@ const PlanillaDiariaPage = () => {
     return labels[estado] || estado;
   };
 
+  // Función para calcular la duración en minutos entre dos horas
+  const calcularDuracion = (horaEntrada, horaSalida) => {
+    if (!horaEntrada || !horaSalida) return null;
+    
+    try {
+      // Convertir formato HH:MM a minutos
+      const [horasEntrada, minutosEntrada] = horaEntrada.split(':').map(Number);
+      const [horasSalida, minutosSalida] = horaSalida.split(':').map(Number);
+      
+      const minutosEntradaTotal = horasEntrada * 60 + minutosEntrada;
+      const minutosSalidaTotal = horasSalida * 60 + minutosSalida;
+      
+      const duracionMinutos = minutosSalidaTotal - minutosEntradaTotal;
+      
+      // Retornar la duración en minutos si es positiva
+      return duracionMinutos > 0 ? duracionMinutos : null;
+    } catch (error) {
+      return null;
+    }
+  };
+
   // Normalizar estructura de planilla recibida desde el backend
   // El backend devuelve { fecha, sesiones, totales } pero la UI espera
   // que cada sesión tenga un objeto `pago` y un posible `resumen`.
@@ -441,13 +520,37 @@ const PlanillaDiariaPage = () => {
           metodoPago: sesion.metodoPago || null,
         };
 
+        // Calcular duración si no viene del backend
+        const duracionCalculada = sesion.duracion || calcularDuracion(sesion.horaEntrada, sesion.horaSalida);
+
         return {
           ...sesion,
           pago: pagoNormalizado,
+          duracion: duracionCalculada,
         };
       }),
     [sesionesCrudas]
   );
+
+  // Calcular el total recaudado del día actual (solo sesiones pagadas)
+  const totalRecaudadoDia = useMemo(() => {
+    return sesiones.reduce((total, sesion) => {
+      if (sesion.pago?.pagado) {
+        return total + (sesion.pago?.monto || 0);
+      }
+      return total;
+    }, 0);
+  }, [sesiones]);
+
+  // Calcular el total pendiente del día actual
+  const totalPendienteDia = useMemo(() => {
+    return sesiones.reduce((total, sesion) => {
+      if (!sesion.pago?.pagado) {
+        return total + (sesion.pago?.monto || 0);
+      }
+      return total;
+    }, 0);
+  }, [sesiones]);
 
   // Usar estadísticas del mes si están disponibles, sino usar resumen/totales del día
   const resumen = estadisticas
@@ -889,7 +992,7 @@ const PlanillaDiariaPage = () => {
                 Recaudado
               </Typography>
               <Typography variant="h6" sx={{ fontWeight: 700, color: '#48bb78', mt: 0.5 }}>
-                ${resumen.totalRecaudado.toLocaleString()}
+                ${totalRecaudadoDia.toLocaleString()}
               </Typography>
             </CardContent>
           </Card>
@@ -908,7 +1011,7 @@ const PlanillaDiariaPage = () => {
                 Pendiente
               </Typography>
               <Typography variant="h6" sx={{ fontWeight: 700, color: '#f56565', mt: 0.5 }}>
-                ${resumen.totalPendiente.toLocaleString()}
+                ${totalPendienteDia.toLocaleString()}
               </Typography>
             </CardContent>
           </Card>
