@@ -32,6 +32,9 @@ import {
   Payment as PaymentIcon,
   AdminPanelSettings as AdminPanelSettingsIcon,
   Security as SecurityIcon,
+  CalendarMonth as CalendarIcon,
+  Notifications as NotificationsIcon,
+  TrendingUp as TrendingUpIcon,
 } from '@mui/icons-material';
 import { toggleSidebar, selectSidebarOpen } from '../../../features/ui/slices/uiSlice';
 import { selectUser } from '../../../features/auth/slices/authSlice';
@@ -66,6 +69,13 @@ const Sidebar = () => {
       path: '/pacientes',
       roles: ['usuario', 'empleado', 'administrador'],
     },
+    // TEMPORALMENTE DESHABILITADO - En desarrollo
+    // {
+    //   text: 'Calendario',
+    //   icon: <CalendarIcon />,
+    //   path: '/calendario',
+    //   roles: ['usuario', 'empleado', 'administrador'],
+    // },
     {
       text: 'Planilla Diaria',
       icon: <EventNoteIcon />,
@@ -82,6 +92,12 @@ const Sidebar = () => {
       text: 'Pagos Pendientes',
       icon: <PaymentIcon />,
       path: '/pagos-pendientes',
+      roles: ['usuario', 'empleado', 'administrador'],
+    },
+    {
+      text: 'Notificaciones',
+      icon: <NotificationsIcon />,
+      path: '/notificaciones',
       roles: ['usuario', 'empleado', 'administrador'],
     },
     {

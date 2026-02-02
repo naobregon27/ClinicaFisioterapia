@@ -12,6 +12,13 @@ import adminDashboardReducer from '../features/admin/slices/adminDashboardSlice'
 import adminUsuariosReducer from '../features/admin/slices/adminUsuariosSlice';
 import adminPagosReducer from '../features/admin/slices/adminPagosSlice';
 import adminAuditoriaReducer from '../features/admin/slices/adminAuditoriaSlice';
+// Nuevas funcionalidades
+import notificacionesReducer from '../features/notificaciones/slices/notificacionesSlice';
+import dashboardReducer from '../features/dashboard/slices/dashboardSlice';
+import busquedaReducer from '../features/busqueda/slices/busquedaSlice';
+import calendarioReducer from '../features/calendario/slices/calendarioSlice';
+import evolucionReducer from '../features/evolucion/slices/evolucionSlice';
+import exportacionReducer from '../features/exportacion/slices/exportacionSlice';
 
 export const store = configureStore({
   reducer: {
@@ -23,6 +30,13 @@ export const store = configureStore({
     adminUsuarios: adminUsuariosReducer,
     adminPagos: adminPagosReducer,
     adminAuditoria: adminAuditoriaReducer,
+    // Nuevas funcionalidades
+    notificaciones: notificacionesReducer,
+    dashboard: dashboardReducer,
+    busqueda: busquedaReducer,
+    calendario: calendarioReducer,
+    evolucion: evolucionReducer,
+    exportacion: exportacionReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

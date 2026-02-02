@@ -15,7 +15,6 @@ import {
   MenuItem,
   Avatar,
   Box,
-  Badge,
   Divider,
   ListItemIcon,
   useTheme,
@@ -23,8 +22,6 @@ import {
 } from '@mui/material';
 import {
   Menu as MenuIcon,
-  Notifications as NotificationsIcon,
-  AccountCircle as AccountCircleIcon,
   Logout as LogoutIcon,
   Person as PersonIcon,
   Settings as SettingsIcon,
@@ -34,6 +31,8 @@ import { logout, selectUser } from '../../../features/auth/slices/authSlice';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { brandGradients, brandPalette } from '../../../theme/brand';
+import NotificationBell from '../ui/NotificationBell';
+import GlobalSearch from '../ui/GlobalSearch';
 
 const DRAWER_WIDTH = 280;
 
@@ -46,7 +45,6 @@ const TopBar = () => {
   const user = useSelector(selectUser);
 
   const [anchorElUser, setAnchorElUser] = useState(null);
-  const [anchorElNotifications, setAnchorElNotifications] = useState(null);
 
   const handleToggleSidebar = () => {
     dispatch(toggleSidebar());
@@ -58,14 +56,6 @@ const TopBar = () => {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
-  };
-
-  const handleOpenNotifications = (event) => {
-    setAnchorElNotifications(event.currentTarget);
-  };
-
-  const handleCloseNotifications = () => {
-    setAnchorElNotifications(null);
   };
 
   const handleLogout = async () => {
@@ -136,62 +126,11 @@ const TopBar = () => {
           </Typography>
         </Box>
 
-        {/* Notificaciones */}
-        <IconButton
-          color="inherit"
-          onClick={handleOpenNotifications}
-          sx={{
-            mr: { xs: 0.5, sm: 1 },
-            color: 'inherit',
-            '&:hover': {
-              bgcolor: 'rgba(255,255,255,0.12)',
-            },
-          }}
-        >
-          <Badge badgeContent={3} color="error">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
+        {/* Búsqueda Global */}
+        <GlobalSearch />
 
-        <Menu
-          anchorEl={anchorElNotifications}
-          open={Boolean(anchorElNotifications)}
-          onClose={handleCloseNotifications}
-          PaperProps={{
-            sx: {
-              width: { xs: 280, sm: 320 },
-              maxHeight: 400,
-              mt: 1,
-            },
-          }}
-          transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-          anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-        >
-          <Box sx={{ px: 2, py: 1.5 }}>
-            <Typography variant="h6" sx={{ fontSize: '1rem', fontWeight: 600 }}>
-              Notificaciones
-            </Typography>
-          </Box>
-          <Divider />
-          <MenuItem onClick={handleCloseNotifications}>
-            <Typography variant="body2">Nueva cita agendada para mañana</Typography>
-          </MenuItem>
-          <MenuItem onClick={handleCloseNotifications}>
-            <Typography variant="body2">Pago pendiente de María González</Typography>
-          </MenuItem>
-          <MenuItem onClick={handleCloseNotifications}>
-            <Typography variant="body2">Recordatorio: Sesión en 30 minutos</Typography>
-          </MenuItem>
-          <Divider />
-          <MenuItem onClick={handleCloseNotifications}>
-            <Typography
-              variant="body2"
-              sx={{ color: 'primary.main', textAlign: 'center', width: '100%' }}
-            >
-              Ver todas las notificaciones
-            </Typography>
-          </MenuItem>
-        </Menu>
+        {/* Notificaciones */}
+        <NotificationBell />
 
         {/* Avatar y Menú de Usuario */}
         <IconButton

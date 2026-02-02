@@ -23,6 +23,11 @@ const SesionesPage = lazy(() => import('../features/sesiones/pages/SesionesPage'
 const SesionFormPage = lazy(() => import('../features/sesiones/pages/SesionFormPage'));
 const PagosPendientesPage = lazy(() => import('../features/sesiones/pages/PagosPendientesPage'));
 
+// Nuevas páginas
+const NotificacionesPage = lazy(() => import('../features/notificaciones/pages/NotificacionesPage'));
+const CalendarioPage = lazy(() => import('../features/calendario/pages/CalendarioPage'));
+const EvolucionPacientePage = lazy(() => import('../features/evolucion/pages/EvolucionPacientePage'));
+
 // Páginas de perfil y configuración
 const PerfilPage = lazy(() => import('../pages/PerfilPage'));
 const ConfiguracionPage = lazy(() => import('../pages/ConfiguracionPage'));
@@ -261,6 +266,50 @@ export const router = createBrowserRouter(
       </ProtectedRoute>
     ),
   },
+
+  // === NOTIFICACIONES ===
+  {
+    path: '/notificaciones',
+    element: (
+      <ProtectedRoute>
+        <MainLayout>
+          <SuspenseWrapper>
+            <NotificacionesPage />
+          </SuspenseWrapper>
+        </MainLayout>
+      </ProtectedRoute>
+    ),
+  },
+
+  // === CALENDARIO ===
+    // TEMPORALMENTE DESHABILITADO - En desarrollo
+    // {
+    //   path: '/calendario',
+    //   element: (
+    //     <ProtectedRoute>
+    //       <MainLayout>
+    //         <SuspenseWrapper>
+    //           <CalendarioPage />
+    //         </SuspenseWrapper>
+    //       </MainLayout>
+    //     </ProtectedRoute>
+    //   ),
+    // },
+
+  // === EVOLUCIÓN ===
+    // TEMPORALMENTE DESHABILITADO - En desarrollo
+    // {
+    //   path: '/evolucion/:pacienteId',
+    //   element: (
+    //     <ProtectedRoute>
+    //       <MainLayout>
+    //         <SuspenseWrapper>
+    //           <EvolucionPacientePage />
+    //         </SuspenseWrapper>
+    //       </MainLayout>
+    //     </ProtectedRoute>
+    //   ),
+    // },
 
   // === PERFIL Y CONFIGURACIÓN ===
   {
