@@ -609,7 +609,7 @@ const DashboardPage = () => {
                   <Button
                     variant="outlined"
                     startIcon={<AddIcon />}
-                    onClick={() => navigate('/sesiones/nueva')}
+                    onClick={() => navigate('/sesiones')}
                     sx={{ mt: 2 }}
                   >
                     Agregar Sesión

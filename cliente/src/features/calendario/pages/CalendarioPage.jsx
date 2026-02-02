@@ -248,7 +248,7 @@ const CalendarioPage = () => {
             <Button variant="outlined" startIcon={<RefreshIcon />} onClick={handleRefresh}>
               Actualizar
             </Button>
-            <Button variant="contained" startIcon={<CalendarIcon />} onClick={() => navigate('/sesiones/nueva')}>
+            <Button variant="contained" startIcon={<CalendarIcon />} onClick={() => navigate('/sesiones')}>
               Nueva Sesión
             </Button>
           </Box>
