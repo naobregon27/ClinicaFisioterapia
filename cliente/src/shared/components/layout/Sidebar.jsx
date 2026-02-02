@@ -69,13 +69,12 @@ const Sidebar = () => {
       path: '/pacientes',
       roles: ['usuario', 'empleado', 'administrador'],
     },
-    // TEMPORALMENTE DESHABILITADO - En desarrollo
-    // {
-    //   text: 'Calendario',
-    //   icon: <CalendarIcon />,
-    //   path: '/calendario',
-    //   roles: ['usuario', 'empleado', 'administrador'],
-    // },
+    {
+      text: 'Calendario',
+      icon: <CalendarIcon />,
+      path: '/calendario',
+      roles: ['usuario', 'empleado', 'administrador'],
+    },
     {
       text: 'Planilla Diaria',
       icon: <EventNoteIcon />,

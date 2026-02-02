@@ -282,34 +282,32 @@ export const router = createBrowserRouter(
   },
 
   // === CALENDARIO ===
-    // TEMPORALMENTE DESHABILITADO - En desarrollo
-    // {
-    //   path: '/calendario',
-    //   element: (
-    //     <ProtectedRoute>
-    //       <MainLayout>
-    //         <SuspenseWrapper>
-    //           <CalendarioPage />
-    //         </SuspenseWrapper>
-    //       </MainLayout>
-    //     </ProtectedRoute>
-    //   ),
-    // },
+  {
+    path: '/calendario',
+    element: (
+      <ProtectedRoute>
+        <MainLayout>
+          <SuspenseWrapper>
+            <CalendarioPage />
+          </SuspenseWrapper>
+        </MainLayout>
+      </ProtectedRoute>
+    ),
+  },
 
   // === EVOLUCIÓN ===
-    // TEMPORALMENTE DESHABILITADO - En desarrollo
-    // {
-    //   path: '/evolucion/:pacienteId',
-    //   element: (
-    //     <ProtectedRoute>
-    //       <MainLayout>
-    //         <SuspenseWrapper>
-    //           <EvolucionPacientePage />
-    //         </SuspenseWrapper>
-    //       </MainLayout>
-    //     </ProtectedRoute>
-    //   ),
-    // },
+  {
+    path: '/evolucion/:pacienteId',
+    element: (
+      <ProtectedRoute>
+        <MainLayout>
+          <SuspenseWrapper>
+            <EvolucionPacientePage />
+          </SuspenseWrapper>
+        </MainLayout>
+      </ProtectedRoute>
+    ),
+  },
 
   // === PERFIL Y CONFIGURACIÓN ===
   {
